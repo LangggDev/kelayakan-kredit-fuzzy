@@ -1,0 +1,49 @@
+* {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background: #0e1830;
+    min-height: 100vh;
+}
+
+.bg-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(245, 166, 35, 0.08) 1px, transparent 0);
+    background-size: 32px 32px;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.97);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1a2e5a 0%, #2d4190 100%);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(26, 46, 90, 0.4);
+    transform: translateY(-1px);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-8px)
+    }
+}
+
+.float {
+    animation: float 5s ease-in-out infinite;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1a2e5a;
+    box-shadow: 0 0 0 3px rgba(26, 46, 90, 0.12);
+}

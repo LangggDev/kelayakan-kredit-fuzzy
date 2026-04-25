@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DejaVu Sans', Arial, sans-serif;
+    font-size: 11px;
+    color: #1e293b;
+    background: #fff;
+}
+
+.header {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 20px 30px;
+}
+
+.header h1 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header p {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-top: 3px;
+}
+
+.result-banner {
+    padding: 15px 30px;
+    background-color: var(--hasil-analisis-keputusan, #dcfce7);
+    border-bottom: 3px solid var(--hasil-analisis-keputusan-border, #dc2626);
+}
+
+.result-banner .skor {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.section {
+    padding: 15px 30px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.section h2 {
+    font-size: 12px;
+    font-weight: bold;
+    color: #4f46e5;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grid-2 {
+    display: table;
+    width: 100%;
+}
+
+.col {
+    display: table-cell;
+    width: 50%;
+    vertical-align: top;
+    padding-right: 15px;
+}
+
+.col:last-child {
+    padding-right: 0;
+}
+
+dl.info dt {
+    font-weight: 600;
+    color: #64748b;
+    font-size: 10px;
+    margin-top: 6px;
+}
+
+dl.info dd {
+    color: #1e293b;
+    margin-left: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+th {
+    background: #f8fafc;
+    text-align: center;
+    padding: 6px 8px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    font-size: 9px;
+    border: 1px solid #e2e8f0;
+}
+
+td {
+    padding: 5px 8px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.badge-layak {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.badge-tidak {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.formula {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+.footer {
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 9px;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+}

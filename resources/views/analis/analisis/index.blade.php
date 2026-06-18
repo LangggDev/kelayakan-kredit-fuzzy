@@ -5,27 +5,6 @@
 
 @section('content')
 
-{{-- Notifikasi analisis ditolak --}}
-@if($jumlahDitolak > 0)
-<div class="flex items-start gap-3 p-4 rounded-xl border-2 border-red-200 bg-red-50 animate-slide">
-    <div class="w-9 h-9 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
-        <i class="fa-solid fa-circle-xmark text-red-600"></i>
-    </div>
-    <div class="flex-1">
-        <p class="font-bold text-red-700 text-sm">
-            {{ $jumlahDitolak }} Analisis Ditolak
-        </p>
-        <p class="text-xs text-red-600 mt-0.5">
-            Kepala Cabang menolak {{ $jumlahDitolak }} analisis Anda. Klik <strong>"Analisis Ulang"</strong>
-            untuk memperbaiki parameter dan mengirim ulang.
-        </p>
-    </div>
-    <a href="{{ route('analis.analisis.index', ['status' => 'ditolak']) }}"
-        class="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold text-red-600 border border-red-300 hover:bg-red-100 transition-colors">
-        Lihat Semua
-    </a>
-</div>
-@endif
 
 {{-- Filter --}}
 <div class="card p-4">
@@ -41,11 +20,10 @@
             <option value="Tidak Layak" {{ request('keputusan')==='Tidak Layak'?'selected':'' }}>❌ Tidak Layak</option>
         </select>
         <select name="status" class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50">
-            <option value="">Semua Status Approval</option>
-            <option value="menunggu"  {{ request('status')==='menunggu'  ?'selected':'' }}>⏳ Menunggu</option>
-            <option value="disetujui" {{ request('status')==='disetujui' ?'selected':'' }}>✅ Disetujui</option>
-            <option value="ditolak"   {{ request('status')==='ditolak'   ?'selected':'' }}>❌ Ditolak</option>
-            <option value="direvisi"  {{ request('status')==='direvisi'  ?'selected':'' }}>🔄 Direvisi</option>
+            <option value="">Semua Status</option>
+            <option value="menunggu"    {{ request('status')==='menunggu'    ?'selected':'' }}>⏳ Menunggu Tanda Tangan</option>
+            <option value="disetujui"   {{ request('status')==='disetujui'   ?'selected':'' }}>✅ Disetujui</option>
+            <option value="tidak_layak" {{ request('status')==='tidak_layak' ?'selected':'' }}>⛔ Tidak Layak</option>
         </select>
         <button type="submit" class="btn-primary px-5 py-2.5 rounded-xl text-white font-semibold text-sm flex items-center gap-2">
             <i class="fa-solid fa-filter"></i> Filter
@@ -80,8 +58,7 @@
             </thead>
             <tbody class="divide-y divide-slate-50">
                 @forelse($riwayat as $item)
-                @php $isDitolak = $item->status_approval === 'ditolak'; @endphp
-                <tr class="table-row {{ $isDitolak ? 'bg-red-50/40' : '' }}">
+                <tr class="table-row">
                     <td class="px-5 py-4 text-slate-400 text-xs">{{ $riwayat->firstItem() + $loop->index }}</td>
                     <td class="px-5 py-4">
                         <div class="font-semibold text-slate-800">{{ $item->calonNasabah->nama }}</div>
@@ -111,24 +88,11 @@
                         <span class="text-slate-300">{{ $item->created_at->format('H:i') }}</span>
                     </td>
                     <td class="px-5 py-4 text-right">
-                        <div class="flex items-center gap-2 justify-end">
-                            {{-- Detail --}}
-                            <a href="{{ route('analis.analisis.show', $item->id) }}"
-                                class="p-1.5 rounded-lg text-xs font-semibold text-white transition-colors"
-                                style="background:#1a2e5a" title="Lihat Detail">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-
-                            {{-- Tombol Analisis Ulang — hanya muncul jika DITOLAK --}}
-                            @if($isDitolak)
-                            <a href="{{ route('analis.analisis.revisi', $item->id) }}"
-                                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white btn-gold"
-                                title="Analisis Ulang">
-                                <i class="fa-solid fa-rotate-right"></i>
-                                Analisis Ulang
-                            </a>
-                            @endif
-                        </div>
+                        <a href="{{ route('analis.analisis.show', $item->id) }}"
+                            class="p-1.5 rounded-lg text-xs font-semibold text-white transition-colors"
+                            style="background:#1a2e5a" title="Lihat Detail">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
                 @empty

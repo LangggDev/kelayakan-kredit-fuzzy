@@ -11,10 +11,10 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'menunggu'   => HasilAnalisis::where('status_approval', 'menunggu')->count(),
-            'disetujui'  => HasilAnalisis::where('status_approval', 'disetujui')->count(),
-            'ditolak'    => HasilAnalisis::where('status_approval', 'ditolak')->count(),
-            'total'      => HasilAnalisis::count(),
+            'menunggu'    => HasilAnalisis::where('status_approval', 'menunggu')->count(),
+            'disetujui'   => HasilAnalisis::where('status_approval', 'disetujui')->count(),
+            'tidak_layak' => HasilAnalisis::where('status_approval', 'tidak_layak')->count(),
+            'total'       => HasilAnalisis::count(),
         ];
 
         $menungguList = HasilAnalisis::with(['user', 'calonNasabah'])
@@ -24,7 +24,7 @@ class DashboardController extends Controller
             ->get();
 
         $recentApproved = HasilAnalisis::with(['user', 'calonNasabah', 'approvedBy'])
-            ->whereIn('status_approval', ['disetujui', 'ditolak'])
+            ->where('status_approval', 'disetujui')
             ->where('approved_by', auth()->id())
             ->latest('approved_at')
             ->take(5)

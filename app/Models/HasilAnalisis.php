@@ -47,30 +47,27 @@ class HasilAnalisis extends Model
     public function getStatusLabelAttribute(): string
     {
         return match($this->status_approval) {
-            'disetujui' => 'Disetujui',
-            'ditolak'   => 'Ditolak',
-            'direvisi'  => 'Direvisi',
-            default     => 'Menunggu',
+            'disetujui'   => 'Disetujui',
+            'tidak_layak' => 'Tidak Layak',
+            default       => 'Menunggu',
         };
     }
 
     public function getStatusColorAttribute(): string
     {
         return match($this->status_approval) {
-            'disetujui' => 'bg-green-100 text-green-700 border-green-200',
-            'ditolak'   => 'bg-red-100 text-red-600 border-red-200',
-            'direvisi'  => 'bg-slate-100 text-slate-500 border-slate-200',
-            default     => 'bg-amber-100 text-amber-700 border-amber-200',
+            'disetujui'   => 'bg-green-100 text-green-700 border-green-200',
+            'tidak_layak' => 'bg-slate-100 text-slate-500 border-slate-200',
+            default       => 'bg-amber-100 text-amber-700 border-amber-200',
         };
     }
 
     public function getStatusIconAttribute(): string
     {
         return match($this->status_approval) {
-            'disetujui' => 'fa-circle-check',
-            'ditolak'   => 'fa-circle-xmark',
-            'direvisi'  => 'fa-rotate-left',
-            default     => 'fa-clock',
+            'disetujui'   => 'fa-circle-check',
+            'tidak_layak' => 'fa-ban',
+            default       => 'fa-clock',
         };
     }
 }

@@ -35,6 +35,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('parameter', ParameterController::class);
     Route::resource('rules', RuleController::class);
 
+    Route::get   ('setting-konversi', [App\Http\Controllers\Admin\SettingKonversiController::class, 'index'])->name('setting-konversi.index');
+    Route::post  ('setting-konversi', [App\Http\Controllers\Admin\SettingKonversiController::class, 'update'])->name('setting-konversi.update');
+
     Route::get   ('analisis',                    [AdminHasilAnalisis::class, 'index'])->name('analisis.index');
     Route::get   ('analisis/{analisis}',         [AdminHasilAnalisis::class, 'show'])->name('analisis.show');
     Route::get   ('analisis/{analisis}/pdf',     [AdminHasilAnalisis::class, 'exportPdf'])->name('analisis.pdf');
@@ -52,10 +55,6 @@ Route::prefix('analis')->name('analis.')->middleware(['auth', 'role:analis'])->g
     // Detail & PDF
     Route::get ('analisis/{analisis}',           [AnalisisController::class, 'show'])->name('analisis.show');
     Route::get ('analisis/{analisis}/pdf',       [AnalisisController::class, 'exportPdf'])->name('analisis.pdf');
-
-    // Revisi: form & simpan
-    Route::get ('analisis/{analisis}/revisi',    [AnalisisController::class, 'revisi'])->name('analisis.revisi');
-    Route::post('analisis/{analisis}/revisi',    [AnalisisController::class, 'storeRevisi'])->name('analisis.storeRevisi');
 });
 
 // Kepala Cabang
@@ -65,8 +64,6 @@ Route::prefix('kepala-cabang')->name('kepala_cabang.')->middleware(['auth', 'rol
     Route::get  ('approval',                          [ApprovalController::class, 'index'])->name('approval.index');
     Route::get  ('approval/{approval}',               [ApprovalController::class, 'show'])->name('approval.show');
     Route::post ('approval/{approval}/approve',       [ApprovalController::class, 'approve'])->name('approval.approve');
-    Route::post ('approval/{approval}/reject',        [ApprovalController::class, 'reject'])->name('approval.reject');
-    Route::patch('approval/{approval}/reset',         [ApprovalController::class, 'resetApproval'])->name('approval.reset');
 });
 
 // Marketing

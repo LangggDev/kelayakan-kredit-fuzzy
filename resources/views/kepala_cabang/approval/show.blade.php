@@ -137,81 +137,65 @@
 @endif
 
 {{-- APPROVAL SECTION --}}
-@if($approval->status_approval === 'menunggu')
-{{-- Approve / Reject Forms --}}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-    {{-- Setujui --}}
-    <div class="card p-5 border-2 border-green-200">
-        <h3 class="font-bold text-green-700 mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-circle-check text-green-600"></i> Setujui Analisis
-        </h3>
-        <p class="text-xs text-slate-500 mb-4">Analisis akan ditandai <strong>Disetujui</strong> dan dapat dilihat oleh Marketing.</p>
-        <form action="{{ route('kepala_cabang.approval.approve', $approval) }}" method="POST">
-            @csrf
-            <textarea name="catatan_approval" rows="3" placeholder="Catatan persetujuan (opsional)..."
-                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 resize-none mb-3"></textarea>
-            <button type="submit"
-                onclick="return confirm('Yakin ingin MENYETUJUI analisis ini?')"
-                class="w-full py-2.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all hover:shadow-lg"
-                style="background:linear-gradient(135deg,#16a34a,#15803d)">
-                <i class="fa-solid fa-circle-check"></i> Setujui Analisis
-            </button>
-        </form>
-    </div>
-
-    {{-- Tolak --}}
-    <div class="card p-5 border-2 border-red-200">
-        <h3 class="font-bold text-red-700 mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-circle-xmark text-red-600"></i> Tolak Analisis
-        </h3>
-        <p class="text-xs text-slate-500 mb-4">Analisis akan dikembalikan dengan status <strong>Ditolak</strong>. Wajib isi alasan penolakan.</p>
-        <form action="{{ route('kepala_cabang.approval.reject', $approval) }}" method="POST">
-            @csrf
-            @error('catatan_approval')
-            <div class="text-xs text-red-600 mb-2"><i class="fa-solid fa-triangle-exclamation mr-1"></i>{{ $message }}</div>
-            @enderror
-            <textarea name="catatan_approval" rows="3" placeholder="Alasan penolakan (wajib diisi)..."
-                class="w-full px-3.5 py-2.5 border border-red-200 rounded-xl text-sm bg-red-50 resize-none mb-3 focus:border-red-400" required></textarea>
-            <button type="submit"
-                onclick="return confirm('Yakin ingin MENOLAK analisis ini?')"
-                class="w-full py-2.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all hover:shadow-lg"
-                style="background:linear-gradient(135deg,#dc2626,#b91c1c)">
-                <i class="fa-solid fa-circle-xmark"></i> Tolak Analisis
-            </button>
-        </form>
+@if($approval->status_approval === 'tidak_layak')
+{{-- Tidak Layak — Informational only, no action --}}
+<div class="card p-5 border-2 border-slate-200 bg-slate-50">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-ban text-slate-500"></i>
+        </div>
+        <div>
+            <p class="font-bold text-slate-700">
+                Hasil Analisis: Tidak Layak
+            </p>
+            <p class="text-xs text-slate-500 mt-0.5">
+                Analisis ini tercatat otomatis sebagai <strong>Tidak Layak</strong>. Tidak memerlukan persetujuan Kepala Cabang.
+            </p>
+        </div>
     </div>
 </div>
 
-@else
-{{-- Already decided --}}
-<div class="card p-5 border-2 {{ $approval->status_approval === 'disetujui' ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50' }}">
-    <div class="flex items-start justify-between gap-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full {{ $approval->status_approval === 'disetujui' ? 'bg-green-100' : 'bg-red-100' }} flex items-center justify-center flex-shrink-0">
-                <i class="fa-solid {{ $approval->status_icon }} {{ $approval->status_approval === 'disetujui' ? 'text-green-600' : 'text-red-600' }}"></i>
-            </div>
-            <div>
-                <p class="font-bold {{ $approval->status_approval === 'disetujui' ? 'text-green-800' : 'text-red-800' }}">
-                    Analisis telah {{ $approval->status_label }}
-                </p>
-                <p class="text-xs text-slate-500 mt-0.5">
-                    Oleh: {{ $approval->approvedBy?->name ?? '-' }}
-                    &bull; {{ $approval->approved_at?->format('d M Y, H:i') }}
-                </p>
-                @if($approval->catatan_approval)
-                <p class="text-xs text-slate-600 mt-2 bg-white/70 rounded-lg p-2">
-                    "{{ $approval->catatan_approval }}"
-                </p>
-                @endif
-            </div>
+@elseif($approval->status_approval === 'menunggu')
+{{-- Layak — Only Approve (sign off) --}}
+<div class="card p-5 border-2 border-green-200">
+    <h3 class="font-bold text-green-700 mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-signature text-green-600"></i> Tanda Tangan Persetujuan
+    </h3>
+    <p class="text-xs text-slate-500 mb-4">Analisis ini menunjukkan hasil <strong>Layak</strong>. Silakan tandatangani untuk menyetujui analisis ini agar dapat dilihat oleh Marketing.</p>
+    <form action="{{ route('kepala_cabang.approval.approve', $approval) }}" method="POST">
+        @csrf
+        <textarea name="catatan_approval" rows="3" placeholder="Catatan persetujuan (opsional)..."
+            class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 resize-none mb-3"></textarea>
+        <button type="submit"
+            onclick="return confirm('Yakin ingin MENYETUJUI analisis ini?')"
+            class="w-full py-2.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all hover:shadow-lg"
+            style="background:linear-gradient(135deg,#16a34a,#15803d)">
+            <i class="fa-solid fa-signature"></i> Setujui & Tanda Tangan
+        </button>
+    </form>
+</div>
+
+@elseif($approval->status_approval === 'disetujui')
+{{-- Already Approved --}}
+<div class="card p-5 border-2 border-green-200 bg-green-50">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-circle-check text-green-600"></i>
         </div>
-        <form action="{{ route('kepala_cabang.approval.reset', $approval) }}" method="POST">
-            @csrf @method('PATCH')
-            <button type="submit" onclick="return confirm('Reset status approval ke Menunggu?')"
-                class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-600 hover:bg-white transition-colors">
-                <i class="fa-solid fa-rotate-left mr-1"></i> Reset
-            </button>
-        </form>
+        <div>
+            <p class="font-bold text-green-800">
+                Analisis telah Disetujui
+            </p>
+            <p class="text-xs text-slate-500 mt-0.5">
+                Oleh: {{ $approval->approvedBy?->name ?? '-' }}
+                &bull; {{ $approval->approved_at?->format('d M Y, H:i') }}
+            </p>
+            @if($approval->catatan_approval)
+            <p class="text-xs text-slate-600 mt-2 bg-white/70 rounded-lg p-2">
+                "{{ $approval->catatan_approval }}"
+            </p>
+            @endif
+        </div>
     </div>
 </div>
 @endif

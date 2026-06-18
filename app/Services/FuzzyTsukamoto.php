@@ -44,6 +44,9 @@ class FuzzyTsukamoto
                 if ($nilai < $b) return ($nilai - $a) / ($b - $a);
                 return ($c - $nilai) / ($c - $b);
 
+            case 'singleton':
+                return $nilai == $a ? 1.0 : 0.0;
+
             default:
                 return 0.0;
         }
@@ -52,18 +55,18 @@ class FuzzyTsukamoto
 
     // Fuzzifikasi semua input
     public function fuzzifikasi(
-        float $skorKredit,
-        float $rasioCicilan,
-        float $asetBersih,
-        float $ltvRatio,
-        float $kondisiEkonomi
+        float $skorKreditSlik,
+        float $capacity,
+        float $capital,
+        float $collateral,
+        float $condition
     ): array {
         $inputs = [
-            'skor_kredit'     => $skorKredit,
-            'rasio_cicilan'   => $rasioCicilan,
-            'aset_bersih'     => $asetBersih,
-            'ltv_ratio'       => $ltvRatio,
-            'kondisi_ekonomi' => $kondisiEkonomi,
+            'skor_kredit_slik' => $skorKreditSlik,
+            'capacity'         => $capacity,
+            'capital'          => $capital,
+            'collateral'       => $collateral,
+            'condition'        => $condition,
         ];
 
         $result = [];
@@ -91,11 +94,11 @@ class FuzzyTsukamoto
         if ($himpunan === 'any') return 1.0;
         // Map nama parameter ke key fuzzifikasi
         $keyMap = [
-            'character'  => 'skor_kredit',
-            'capacity'   => 'rasio_cicilan',
-            'capital'    => 'aset_bersih',
-            'collateral' => 'ltv_ratio',
-            'condition'  => 'kondisi_ekonomi',
+            'character'  => 'skor_kredit_slik',
+            'capacity'   => 'capacity',
+            'capital'    => 'capital',
+            'collateral' => 'collateral',
+            'condition'  => 'condition',
         ];
         $key = $keyMap[$param] ?? $param;
         return $fuzz[$key][$himpunan] ?? 0.0;
@@ -115,14 +118,14 @@ class FuzzyTsukamoto
     
     // Proses lengkap Fuzzy Tsukamoto
     public function proses(
-        float $skorKredit,
-        float $rasioCicilan,
-        float $asetBersih,
-        float $ltvRatio,
-        float $kondisiEkonomi
+        float $skorKreditSlik,
+        float $capacity,
+        float $capital,
+        float $collateral,
+        float $condition
     ): array {
         // Tahap 1: Fuzzifikasi
-        $fuzz = $this->fuzzifikasi($skorKredit, $rasioCicilan, $asetBersih, $ltvRatio, $kondisiEkonomi);
+        $fuzz = $this->fuzzifikasi($skorKreditSlik, $capacity, $capital, $collateral, $condition);
 
         // Tahap 2 & 3: Evaluasi rule & inferensi
         $detailRule = [];
@@ -164,11 +167,12 @@ class FuzzyTsukamoto
         $keputusan   = $nilaiDefuzz >= 50 ? 'Layak' : 'Tidak Layak';
 
         // Hitung skor per komponen 5C (0-100)
-        $skorChar  = $this->hitungSkorKomponen($fuzz['skor_kredit']    ?? [], ['baik'=>100,'cukup'=>50,'buruk'=>0]);
-        $skorCap   = $this->hitungSkorKomponen($fuzz['rasio_cicilan']  ?? [], ['tinggi'=>100,'sedang'=>50,'rendah'=>0]);
-        $skorCapit = $this->hitungSkorKomponen($fuzz['aset_bersih']    ?? [], ['besar'=>100,'sedang'=>50,'kecil'=>0]);
-        $skorColl  = $this->hitungSkorKomponen($fuzz['ltv_ratio']      ?? [], ['tinggi'=>100,'sedang'=>50,'rendah'=>0]);
-        $skorCond  = $this->hitungSkorKomponen($fuzz['kondisi_ekonomi']?? [], ['baik'=>100,'cukup'=>50,'buruk'=>0]);
+        // Skor komponen default (Tidak Layak = 0, Layak = 50, Sangat Layak = 100)
+        $skorChar  = $this->hitungSkorKomponen($fuzz['skor_kredit_slik'] ?? [], ['S1'=>100,'S2'=>50,'S3'=>0]);
+        $skorCap   = $this->hitungSkorKomponen($fuzz['capacity']         ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
+        $skorCapit = $this->hitungSkorKomponen($fuzz['capital']          ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
+        $skorColl  = $this->hitungSkorKomponen($fuzz['collateral']       ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
+        $skorCond  = $this->hitungSkorKomponen($fuzz['condition']        ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
 
         return [
             'fuzzifikasi'         => $fuzz,

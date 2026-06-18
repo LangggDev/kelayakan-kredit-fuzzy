@@ -15,9 +15,9 @@
         </div>
         <select name="status" class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white">
             <option value="">Semua Status</option>
-            <option value="menunggu"  {{ request('status')==='menunggu'  ?'selected':'' }}>⏳ Menunggu</option>
-            <option value="disetujui" {{ request('status')==='disetujui' ?'selected':'' }}>✅ Disetujui</option>
-            <option value="ditolak"   {{ request('status')==='ditolak'   ?'selected':'' }}>❌ Ditolak</option>
+            <option value="menunggu"    {{ request('status')==='menunggu'    ?'selected':'' }}>⏳ Menunggu Tanda Tangan</option>
+            <option value="disetujui"   {{ request('status')==='disetujui'   ?'selected':'' }}>✅ Disetujui</option>
+            <option value="tidak_layak" {{ request('status')==='tidak_layak' ?'selected':'' }}>⛔ Tidak Layak</option>
         </select>
         <select name="keputusan" class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white">
             <option value="">Semua Keputusan Fuzzy</option>
@@ -85,8 +85,8 @@
                     <td class="px-5 py-4 text-right">
                         <a href="{{ route('kepala_cabang.approval.show', $item->id) }}"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white btn-gold">
-                            <i class="fa-solid fa-stamp"></i>
-                            {{ $item->status_approval === 'menunggu' ? 'Review' : 'Detail' }}
+                            <i class="fa-solid {{ $item->status_approval === 'menunggu' ? 'fa-signature' : ($item->status_approval === 'tidak_layak' ? 'fa-eye' : 'fa-stamp') }}"></i>
+                            {{ $item->status_approval === 'menunggu' ? 'Tanda Tangan' : ($item->status_approval === 'tidak_layak' ? 'Lihat' : 'Detail') }}
                         </a>
                     </td>
                 </tr>

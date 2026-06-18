@@ -39,6 +39,10 @@ class ApprovalController extends Controller
 
     public function approve(Request $request, HasilAnalisis $approval)
     {
+        if ($approval->status_approval !== 'menunggu') {
+            return back()->with('error', 'Analisis ini tidak dapat disetujui.');
+        }
+
         $request->validate([
             'catatan_approval' => 'nullable|string|max:500',
         ]);
@@ -53,35 +57,5 @@ class ApprovalController extends Controller
         return redirect()->route('kepala_cabang.approval.index')
             ->with('success', "Analisis atas nama {$approval->calonNasabah->nama} telah DISETUJUI.");
     }
-
-    public function reject(Request $request, HasilAnalisis $approval)
-    {
-        $request->validate([
-            'catatan_approval' => 'required|string|max:500',
-        ], [
-            'catatan_approval.required' => 'Alasan penolakan wajib diisi.',
-        ]);
-
-        $approval->update([
-            'status_approval'  => 'ditolak',
-            'approved_by'      => auth()->user()->id,
-            'approved_at'      => now(),
-            'catatan_approval' => $request->catatan_approval,
-        ]);
-
-        return redirect()->route('kepala_cabang.approval.index')
-            ->with('success', "Analisis atas nama {$approval->calonNasabah->nama} telah DITOLAK.");
-    }
-
-    public function resetApproval(HasilAnalisis $approval)
-    {
-        $approval->update([
-            'status_approval'  => 'menunggu',
-            'approved_by'      => null,
-            'approved_at'      => null,
-            'catatan_approval' => null,
-        ]);
-
-        return back()->with('success', 'Status approval berhasil direset ke Menunggu.');
-    }
 }
+

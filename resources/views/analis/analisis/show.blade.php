@@ -5,36 +5,13 @@
 
 @section('content')
 
-{{-- ══ BANNER DITOLAK (paling atas, paling mencolok) ══ --}}
-@if($analisis->status_approval === 'ditolak')
-<div class="rounded-2xl border-2 border-red-300 overflow-hidden" style="background:linear-gradient(135deg,#fef2f2,#fee2e2)">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5">
-        <div class="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center flex-shrink-0">
-            <i class="fa-solid fa-circle-xmark text-red-600 text-2xl"></i>
-        </div>
-        <div class="flex-1">
-            <h3 class="font-bold text-red-800 text-base">Analisis Ini Ditolak oleh Kepala Cabang</h3>
-            <p class="text-sm text-red-600 mt-0.5">
-                Ditolak oleh <strong>{{ $analisis->approvedBy?->name ?? '—' }}</strong>
-                pada {{ $analisis->approved_at?->format('d M Y, H:i') ?? '—' }}
-            </p>
-            @if($analisis->catatan_approval)
-            <div class="mt-2 p-3 bg-white/70 rounded-xl border border-red-200">
-                <p class="text-xs font-semibold text-red-700 mb-1">
-                    <i class="fa-solid fa-comment-dots mr-1"></i> Alasan Penolakan:
-                </p>
-                <p class="text-sm text-red-800 font-medium">"{{ $analisis->catatan_approval }}"</p>
-            </div>
-            @endif
-        </div>
-        <div class="flex-shrink-0">
-            <a href="{{ route('analis.analisis.revisi', $analisis->id) }}"
-                class="flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white btn-gold shadow-lg">
-                <i class="fa-solid fa-rotate-right"></i>
-                Analisis Ulang
-            </a>
-            <p class="text-xs text-red-500 text-center mt-1.5">Perbaiki parameter & kirim ulang</p>
-        </div>
+{{-- ══ BANNER TIDAK LAYAK ══ --}}
+@if($analisis->status_approval === 'tidak_layak')
+<div class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-slate-50">
+    <i class="fa-solid fa-ban text-slate-400 text-xl flex-shrink-0"></i>
+    <div>
+        <p class="font-bold text-slate-600 text-sm">Hasil Analisis: Tidak Layak</p>
+        <p class="text-xs text-slate-400">Analisis ini tercatat otomatis sebagai Tidak Layak. Tidak memerlukan persetujuan Kepala Cabang.</p>
     </div>
 </div>
 @endif
@@ -61,19 +38,8 @@
 <div class="flex items-center gap-3 p-4 rounded-xl border-2 border-amber-200 bg-amber-50">
     <i class="fa-solid fa-clock text-amber-500 text-xl flex-shrink-0"></i>
     <div>
-        <p class="font-bold text-amber-800 text-sm">Menunggu Persetujuan Kepala Cabang</p>
-        <p class="text-xs text-amber-600">Analisis ini sedang dalam antrian review Kepala Cabang.</p>
-    </div>
-</div>
-@endif
-
-{{-- ══ BANNER DIREVISI (arsip) ══ --}}
-@if($analisis->status_approval === 'direvisi')
-<div class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-slate-50">
-    <i class="fa-solid fa-rotate-left text-slate-400 text-xl flex-shrink-0"></i>
-    <div>
-        <p class="font-bold text-slate-500 text-sm">Analisis Ini Telah Direvisi</p>
-        <p class="text-xs text-slate-400">Anda telah melakukan analisis ulang dari data ini. Analisis ini tersimpan sebagai arsip.</p>
+        <p class="font-bold text-amber-800 text-sm">Menunggu Tanda Tangan Kepala Cabang</p>
+        <p class="text-xs text-amber-600">Analisis ini sedang dalam antrian tanda tangan Kepala Cabang.</p>
     </div>
 </div>
 @endif
@@ -158,19 +124,10 @@
         class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium text-sm hover:bg-slate-50">
         <i class="fa-solid fa-arrow-left"></i> Kembali
     </a>
-    @if($analisis->status_approval === 'ditolak')
-    <a href="{{ route('analis.analisis.revisi', $analisis->id) }}"
-        class="btn-gold flex items-center gap-2 px-5 py-2.5 rounded-xl text-navy-800 font-bold text-sm"
-        style="color:#1a2e5a">
-        <i class="fa-solid fa-rotate-right"></i> Analisis Ulang
-    </a>
-    @endif
-    @if(in_array($analisis->status_approval, ['menunggu','disetujui']))
     <a href="{{ route('analis.analisis.pdf', $analisis->id) }}"
         class="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium text-sm hover:bg-slate-50">
         <i class="fa-solid fa-file-pdf text-red-500"></i> Export PDF
     </a>
-    @endif
 </div>
 
 @endsection

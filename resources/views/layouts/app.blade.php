@@ -125,6 +125,9 @@
                 <a href="{{ route('admin.rules.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.rules.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-code-branch w-4 text-center"></i> Rule Fuzzy
                 </a>
+                <a href="{{ route('admin.setting-konversi.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.setting-konversi.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-calculator w-4 text-center"></i> Rumus Konversi
+                </a>
                 <div class="sidebar-section">Data</div>
                 <a href="{{ route('admin.analisis.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.analisis.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-file-waveform w-4 text-center"></i> Hasil Analisis

@@ -33,49 +33,28 @@ class AnalisisController extends Controller
 
         $riwayat = $query->paginate(10)->withQueryString();
 
-        $jumlahDitolak = HasilAnalisis::where('user_id', auth()->id())
-            ->where('status_approval', 'ditolak')
-            ->count();
-
-        return view('analis.analisis.index', compact('riwayat', 'jumlahDitolak'));
+        return view('analis.analisis.index', compact('riwayat'));
     }
 
     public function create()
     {
         $nasabahList = CalonNasabah::orderBy('nama')->get();
-        return view('analis.analisis.create', compact('nasabahList'));
+        $settings = \App\Models\SettingKonversi::all()->keyBy('kriteria');
+        return view('analis.analisis.create', compact('nasabahList', 'settings'));
     }
-
-    public function revisi(HasilAnalisis $analisis)
-    {
-        if ($analisis->user_id !== auth()->id()) {
-            abort(403, 'Akses tidak diizinkan.');
-        }
-
-        if ($analisis->status_approval !== 'ditolak') {
-            return redirect()->route('analis.analisis.show', $analisis->id)
-                ->with('error', 'Hanya analisis yang ditolak yang dapat direvisi.');
-        }
-
-        $analisis->load(['calonNasabah']);
-        $nasabahList = CalonNasabah::orderBy('nama')->get();
-
-        return view('analis.analisis.revisi', compact('analisis', 'nasabahList'));
-    }
-
     public function store(Request $request)
     {
-        // Validasi umum
         $request->validate([
-            'mode'            => 'required|in:baru,existing',
-            'skor_kredit'     => 'required|numeric|min:0|max:100',
-            'penghasilan'     => 'required|numeric|min:1',
-            'jumlah_pinjaman' => 'required|numeric|min:1',
-            'jangka_waktu'    => 'required|integer|min:1|max:360',
-            'aset_bersih'     => 'required|numeric',
-            'nilai_agunan'    => 'required|numeric|min:0',
-            'kondisi_ekonomi' => 'required|numeric|min:0|max:100',
-            'catatan'         => 'nullable|string',
+            'mode'             => 'required|in:baru,existing',
+            'skor_kredit_slik' => 'required|numeric|in:1,2,3',
+            'capacity'         => 'required|numeric|min:0|max:100',
+            'capital'          => 'required|numeric|min:0|max:100',
+            'collateral'       => 'required|numeric|min:0|max:100',
+            'condition'        => 'required|numeric|min:0|max:100',
+            'penghasilan'      => 'nullable|numeric',
+            'jumlah_pinjaman'  => 'nullable|numeric',
+            'jangka_waktu'     => 'nullable|numeric',
+            'catatan'          => 'nullable|string',
         ]);
 
         // Validasi mode
@@ -112,59 +91,84 @@ class AnalisisController extends Controller
         return $this->prosesAndSimpan($request, $nasabah);
     }
 
-    public function storeRevisi(Request $request, HasilAnalisis $analisis)
-    {
-        if ($analisis->user_id !== auth()->id()) {
-            abort(403);
-        }
-        if ($analisis->status_approval !== 'ditolak') {
-            return redirect()->route('analis.analisis.show', $analisis->id)
-                ->with('error', 'Hanya analisis yang ditolak yang dapat direvisi.');
-        }
-
-        $request->validate([
-            'skor_kredit'     => 'required|numeric|min:0|max:100',
-            'penghasilan'     => 'required|numeric|min:1',
-            'jumlah_pinjaman' => 'required|numeric|min:1',
-            'jangka_waktu'    => 'required|integer|min:1|max:360',
-            'aset_bersih'     => 'required|numeric',
-            'nilai_agunan'    => 'required|numeric|min:0',
-            'kondisi_ekonomi' => 'required|numeric|min:0|max:100',
-            'catatan'         => 'nullable|string',
-        ]);
-
-        $nasabah = $analisis->calonNasabah;
-
-        $analisis->update(['status_approval' => 'direvisi']);
-
-        $hasilBaru = $this->prosesAndSimpan($request, $nasabah, $analisis->id);
-
-        return $hasilBaru;
-    }
-
     private function prosesAndSimpan(Request $request, CalonNasabah $nasabah, ?int $revisiDariId = null)
     {
-        // Hitung rasio otomatis
-        $rasioCicilan = FuzzyTsukamoto::hitungRasioCicilan(
-            (float) $request->jumlah_pinjaman,
-            (int)   $request->jangka_waktu,
-            (float) $request->penghasilan,
-            12.0
-        );
+        // Ambil Setting Konversi dari Database
+        $settings = \App\Models\SettingKonversi::all()->keyBy('kriteria');
+        $capSL = $settings['capacity']->batas_sangat_layak ?? 30;
+        $capTL = $settings['capacity']->batas_tidak_layak ?? 70;
+        
+        $capitSL = $settings['capital']->batas_sangat_layak ?? 200;
+        $capitTL = $settings['capital']->batas_tidak_layak ?? 0;
+        
+        $colSL = $settings['collateral']->batas_sangat_layak ?? 70;
+        $colTL = $settings['collateral']->batas_tidak_layak ?? 110;
 
-        $ltvRatio = FuzzyTsukamoto::hitungLTV(
-            (float) $request->jumlah_pinjaman,
-            (float) $request->nilai_agunan
-        );
+        // Hitung ulang rasio untuk mendapatkan skor fuzzy 0-100 secara valid di backend
+        $pinjaman = (float) $request->jumlah_pinjaman;
+        $penghasilan = (float) $request->penghasilan;
+        $jangka = (int) $request->jangka_waktu;
+        $asetBersih = (float) $request->aset_bersih ?? (($request->total_aset ?? 0) - ($request->total_hutang ?? 0));
+        $agunan = (float) $request->nilai_agunan;
+
+        // Hitung C2 Capacity
+        $capacityScore = 0;
+        if ($pinjaman > 0 && $penghasilan > 0 && $jangka > 0) {
+            $r = 0.12 / 12;
+            $cicilan = $pinjaman * ($r * pow(1+$r, $jangka)) / (pow(1+$r, $jangka) - 1);
+            $rasio = ($cicilan / $penghasilan) * 100;
+            
+            if ($capSL < $capTL) {
+                if ($rasio <= $capSL) $capacityScore = 100;
+                else if ($rasio >= $capTL) $capacityScore = 0;
+                else $capacityScore = 100 - (($rasio - $capSL) / ($capTL - $capSL)) * 100;
+            } else {
+                if ($rasio >= $capSL) $capacityScore = 100;
+                else if ($rasio <= $capTL) $capacityScore = 0;
+                else $capacityScore = (($rasio - $capTL) / ($capSL - $capTL)) * 100;
+            }
+        }
+
+        // Hitung C3 Capital
+        $capitalScore = 0;
+        if ($pinjaman > 0) {
+            $rasioAset = ($asetBersih / $pinjaman) * 100;
+            
+            if ($capitSL > $capitTL) {
+                if ($rasioAset >= $capitSL) $capitalScore = 100;
+                else if ($rasioAset <= $capitTL) $capitalScore = 0;
+                else $capitalScore = (($rasioAset - $capitTL) / ($capitSL - $capitTL)) * 100;
+            } else {
+                if ($rasioAset <= $capitSL) $capitalScore = 100;
+                else if ($rasioAset >= $capitTL) $capitalScore = 0;
+                else $capitalScore = 100 - (($rasioAset - $capitSL) / ($capitTL - $capitSL)) * 100;
+            }
+        }
+
+        // Hitung C4 Collateral
+        $collateralScore = 0;
+        if ($agunan > 0 && $pinjaman > 0) {
+            $ltv = ($pinjaman / $agunan) * 100;
+            
+            if ($colSL < $colTL) {
+                if ($ltv <= $colSL) $collateralScore = 100;
+                else if ($ltv >= $colTL) $collateralScore = 0;
+                else $collateralScore = 100 - (($ltv - $colSL) / ($colTL - $colSL)) * 100;
+            } else {
+                if ($ltv >= $colSL) $collateralScore = 100;
+                else if ($ltv <= $colTL) $collateralScore = 0;
+                else $collateralScore = (($ltv - $colTL) / ($colSL - $colTL)) * 100;
+            }
+        }
 
         // Proses Fuzzy Tsukamoto
         $fuzzy = new FuzzyTsukamoto();
         $hasil = $fuzzy->proses(
-            (float) $request->skor_kredit,
-            $rasioCicilan,
-            (float) $request->aset_bersih,
-            $ltvRatio,
-            (float) $request->kondisi_ekonomi
+            (float) $request->skor_kredit_slik,
+            round($capacityScore),
+            round($capitalScore),
+            round($collateralScore),
+            (float) $request->condition
         );
 
         $catatan = $request->catatan;
@@ -176,14 +180,14 @@ class AnalisisController extends Controller
         $hasilAnalisis = HasilAnalisis::create([
             'user_id'              => auth()->user()->id,
             'calon_nasabah_id'     => $nasabah->id,
-            'skor_kredit'          => $request->skor_kredit,
-            'penghasilan'          => $request->penghasilan,
-            'rasio_cicilan'        => $rasioCicilan,
-            'aset_bersih'          => $request->aset_bersih,
-            'nilai_agunan'         => $request->nilai_agunan,
-            'jumlah_pinjaman'      => $request->jumlah_pinjaman,
-            'jangka_waktu'         => $request->jangka_waktu,
-            'kondisi_ekonomi'      => $request->kondisi_ekonomi,
+            'skor_kredit'          => $request->skor_kredit_slik, // Simpan Slik 1/2/3
+            'penghasilan'          => $request->penghasilan ?? 0,
+            'rasio_cicilan'        => round($capacityScore), // Simpan capacity di rasio_cicilan untuk kompatibilitas DB
+            'aset_bersih'          => round($capitalScore),  // Simpan capital di aset_bersih
+            'nilai_agunan'         => round($collateralScore), // Simpan collateral di nilai_agunan
+            'jumlah_pinjaman'      => $request->jumlah_pinjaman ?? 0,
+            'jangka_waktu'         => $request->jangka_waktu ?? 0,
+            'kondisi_ekonomi'      => $request->condition, // Simpan condition
             'nilai_fuzzifikasi'    => $hasil['fuzzifikasi'],
             'detail_rule'          => $hasil['detail_rule'],
             'nilai_defuzzifikasi'  => $hasil['nilai_defuzzifikasi'],
@@ -195,7 +199,7 @@ class AnalisisController extends Controller
             'skor_collateral'      => $hasil['skor_collateral'],
             'skor_condition'       => $hasil['skor_condition'],
             'catatan'              => $catatan,
-            'status_approval'      => 'menunggu',
+            'status_approval'      => $hasil['keputusan'] === 'Layak' ? 'menunggu' : 'tidak_layak',
         ]);
 
         $pesan = $revisiDariId

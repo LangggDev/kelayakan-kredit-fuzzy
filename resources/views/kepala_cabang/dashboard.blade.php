@@ -33,11 +33,11 @@
     <div class="stat-card p-5">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ditolak</p>
-                <p class="text-3xl font-bold text-red-500 mt-1">{{ $stats['ditolak'] }}</p>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tidak Layak</p>
+                <p class="text-3xl font-bold text-slate-500 mt-1">{{ $stats['tidak_layak'] }}</p>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
-                <i class="fa-solid fa-circle-xmark text-red-500"></i>
+            <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-ban text-slate-400"></i>
             </div>
         </div>
     </div>
@@ -60,9 +60,9 @@
         <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between" style="background:linear-gradient(135deg,#fef9ee,#fdf0ce)">
             <div>
                 <h3 class="font-bold text-amber-800 text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-clock text-amber-500"></i> Menunggu Persetujuan
+                <i class="fa-solid fa-clock text-amber-500"></i> Menunggu Tanda Tangan
                 </h3>
-                <p class="text-xs text-amber-600 mt-0.5">Analisis yang perlu ditindaklanjuti</p>
+                <p class="text-xs text-amber-600 mt-0.5">Analisis layak yang perlu ditandatangani</p>
             </div>
             @if($stats['menunggu'] > 0)
             <span class="bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">{{ $stats['menunggu'] }}</span>
@@ -84,7 +84,7 @@
                     </span>
                     <a href="{{ route('kepala_cabang.approval.show', $item->id) }}"
                         class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white btn-gold">
-                        Review
+                        Tanda Tangan
                     </a>
                 </div>
             </div>
@@ -114,8 +114,8 @@
         <div class="divide-y divide-slate-50">
             @forelse($recentApproved as $item)
             <div class="flex items-center gap-3 px-5 py-3.5">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 {{ $item->status_approval === 'disetujui' ? 'bg-green-100' : 'bg-red-100' }}">
-                    <i class="fa-solid {{ $item->status_icon }} text-sm {{ $item->status_approval === 'disetujui' ? 'text-green-600' : 'text-red-500' }}"></i>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-green-100">
+                    <i class="fa-solid fa-circle-check text-sm text-green-600"></i>
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="font-semibold text-slate-800 text-sm truncate">{{ $item->calonNasabah->nama }}</div>
@@ -138,7 +138,7 @@
 <div class="card p-5 flex items-center justify-between gap-4" style="background:linear-gradient(135deg,#1a2e5a,#2d4190)">
     <div>
         <p class="font-bold text-white text-sm">Mulai Review Analisis</p>
-        <p class="text-xs mt-0.5" style="color:rgba(245,166,35,0.8)">Terdapat {{ $stats['menunggu'] }} analisis yang menunggu persetujuan Anda</p>
+        <p class="text-xs mt-0.5" style="color:rgba(245,166,35,0.8)">Terdapat {{ $stats['menunggu'] }} analisis yang menunggu tanda tangan Anda</p>
     </div>
     <a href="{{ route('kepala_cabang.approval.index') }}" class="btn-gold flex items-center gap-2 px-5 py-2.5 rounded-xl text-navy-800 font-bold text-sm flex-shrink-0">
         <i class="fa-solid fa-stamp"></i> Buka Approval

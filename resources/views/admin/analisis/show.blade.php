@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Detail Analisis')
 @section('page-title', 'Detail Hasil Analisis')
-@section('page-subtitle', 'Laporan kelayakan kredit — ' . $hasilAnalisis->calonNasabah->nama)
+@section('page-subtitle', 'Laporan kelayakan kredit — ' . ($hasilAnalisis->calonNasabah?->nama ?? 'Nasabah Terhapus'))
 
 @section('content')
 <!-- Result Header Banner -->
@@ -27,7 +27,7 @@
     <div class="card p-6">
         <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-user text-indigo-500"></i> Data Calon Nasabah</h3>
         <dl class="space-y-2">
-            @foreach(['Nama'=>$hasilAnalisis->calonNasabah->nama,'NIK'=>$hasilAnalisis->calonNasabah->nik,'Pekerjaan'=>$hasilAnalisis->calonNasabah->pekerjaan??'-','Telepon'=>$hasilAnalisis->calonNasabah->telepon??'-'] as $lbl=>$val)
+            @foreach(['Nama'=>$hasilAnalisis->calonNasabah?->nama ?? 'Data Terhapus','NIK'=>$hasilAnalisis->calonNasabah?->nik ?? '-','Pekerjaan'=>$hasilAnalisis->calonNasabah?->pekerjaan??'-','Telepon'=>$hasilAnalisis->calonNasabah?->telepon??'-'] as $lbl=>$val)
             <div class="flex justify-between py-2 border-b border-slate-50 last:border-0">
                 <dt class="text-sm text-slate-500">{{ $lbl }}</dt>
                 <dd class="text-sm font-medium text-slate-800 text-right">{{ $val }}</dd>
@@ -39,11 +39,11 @@
         <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-sliders text-indigo-500"></i> Parameter Input</h3>
         <dl class="space-y-2">
             <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Penghasilan/Bulan</dt><dd class="text-sm font-semibold">Rp {{ number_format($hasilAnalisis->penghasilan,0,',','.') }}</dd></div>
-            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Tanggungan</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->tanggungan }} orang</dd></div>
-            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Pinjaman</dt><dd class="text-sm font-semibold">Rp {{ number_format($hasilAnalisis->pinjaman,0,',','.') }}</dd></div>
+            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Jumlah Pinjaman</dt><dd class="text-sm font-semibold">Rp {{ number_format($hasilAnalisis->jumlah_pinjaman,0,',','.') }}</dd></div>
+            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Rasio Cicilan</dt><dd class="text-sm font-semibold">{{ number_format($hasilAnalisis->rasio_cicilan, 2) }}%</dd></div>
             <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Jangka Waktu</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->jangka_waktu }} bulan</dd></div>
-            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Analis</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->user->name }}</dd></div>
-            <div class="flex justify-between py-2"><dt class="text-sm text-slate-500">Tanggal</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->created_at->format('d M Y, H:i') }}</dd></div>
+            <div class="flex justify-between py-2 border-b border-slate-50"><dt class="text-sm text-slate-500">Analis</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->user?->name ?? 'Analis Terhapus' }}</dd></div>
+            <div class="flex justify-between py-2"><dt class="text-sm text-slate-500">Tanggal</dt><dd class="text-sm font-semibold">{{ $hasilAnalisis->created_at ? $hasilAnalisis->created_at->format('d M Y, H:i') : '-' }}</dd></div>
         </dl>
     </div>
 </div>

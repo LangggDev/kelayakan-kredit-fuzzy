@@ -40,9 +40,9 @@ class HasilAnalisis extends Model
         'approved_at'          => 'datetime',
     ];
 
-    public function user()         { return $this->belongsTo(User::class); }
-    public function calonNasabah() { return $this->belongsTo(CalonNasabah::class, 'calon_nasabah_id'); }
-    public function approvedBy()   { return $this->belongsTo(User::class, 'approved_by'); }
+    public function user()         { return $this->belongsTo(User::class)->withDefault(['name' => 'Pengguna Terhapus']); }
+    public function calonNasabah() { return $this->belongsTo(CalonNasabah::class, 'calon_nasabah_id')->withDefault(['nama' => 'Nasabah Terhapus', 'nik' => '-']); }
+    public function approvedBy()   { return $this->belongsTo(User::class, 'approved_by')->withDefault(['name' => 'Sistem / Terhapus']); }
 
     public function getStatusLabelAttribute(): string
     {

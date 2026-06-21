@@ -120,18 +120,26 @@
                         </div>
                     </div>
                     <div class="p-5">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tipe SLIK <span
-                                class="text-red-500">*</span></label>
-                        <select name="skor_kredit_slik" required
-                            class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white">
-                            <option value="">-- Pilih Tipe SLIK --</option>
-                            <option value="1" {{ old('skor_kredit_slik') == '1' ? 'selected' : '' }}>Slik 1 (Excelent, Very
-                                Good, Good)</option>
-                            <option value="2" {{ old('skor_kredit_slik') == '2' ? 'selected' : '' }}>Slik 2 (Medium, Bad 1)
-                            </option>
-                            <option value="3" {{ old('skor_kredit_slik') == '3' ? 'selected' : '' }}>Slik 3 (Bad 2, Worst)
-                            </option>
-                        </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tipe SLIK <span
+                                        class="text-red-500">*</span></label>
+                                <input type="range" id="slikRange" name="skor_kredit_slik" min="1" max="3"
+                                    value="{{ old('skor_kredit_slik', 1) }}" class="w-full accent-blue-600"
+                                    oninput="updateSlik(this.value)">
+                                <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                    <span>1 (Excellent)</span>
+                                    <span>2 (Medium)</span>
+                                    <span>3 (Bad/Worst)</span>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-4">
+                                <p class="text-xs font-semibold text-slate-500 mb-2">Keterangan SLIK</p>
+                                <div class="mt-2">
+                                    <span class="text-sm font-bold text-green-600" id="slikLabel">✅ 1 — Excellent / Very Good / Good</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -412,13 +420,21 @@
             document.getElementById('existingSection').classList.toggle('hidden', mode === 'baru');
         }
 
-        // C1 Character
-        function updateCharLabel(v) {
-            const el = document.getElementById('charLabel');
-            v = parseFloat(v);
-            if (v <= 40) el.textContent = '⚠️ Buruk — Risiko Tinggi', el.className = 'text-xs font-semibold text-red-600';
-            else if (v <= 60) el.textContent = '🟡 Cukup — Perlu Dipertimbangkan', el.className = 'text-xs font-semibold text-yellow-600';
-            else el.textContent = '✅ Baik — Layak', el.className = 'text-xs font-semibold text-green-600';
+        // C1 Character (SLIK)
+        function updateSlik(v) {
+            v = parseInt(v);
+            document.getElementById('slikRange').value = v;
+            const el = document.getElementById('slikLabel');
+            if (v === 1) {
+                el.textContent = '✅ 1 — Excellent / Very Good / Good';
+                el.className = 'text-sm font-bold text-green-600';
+            } else if (v === 2) {
+                el.textContent = '🟡 2 — Medium / Bad 1';
+                el.className = 'text-sm font-bold text-yellow-600';
+            } else {
+                el.textContent = '⚠️ 3 — Bad 2 / Worst (Otomatis Tidak Layak)';
+                el.className = 'text-sm font-bold text-red-600';
+            }
         }
 
         // C2 Capacity: hitung cicilan & rasio
@@ -538,7 +554,7 @@
         }
 
         // Init
-        updateCharLabel(document.getElementById('skorKredit').value);
+        updateSlik(document.getElementById('slikRange').value);
         updateCondisi(document.getElementById('kondisiInput').value);
         switchMode('{{ old('mode', 'baru') }}');
 

@@ -62,11 +62,11 @@ class FuzzyTsukamoto
         float $condition
     ): array {
         $inputs = [
-            'skor_kredit_slik' => $skorKreditSlik,
-            'capacity'         => $capacity,
-            'capital'          => $capital,
-            'collateral'       => $collateral,
-            'condition'        => $condition,
+            'skor_kredit'     => $skorKreditSlik,
+            'rasio_cicilan'   => $capacity,
+            'aset_bersih'     => $capital,
+            'ltv_ratio'       => $collateral,
+            'kondisi_ekonomi' => $condition,
         ];
 
         $result = [];
@@ -94,11 +94,11 @@ class FuzzyTsukamoto
         if ($himpunan === 'any') return 1.0;
         // Map nama parameter ke key fuzzifikasi
         $keyMap = [
-            'character'  => 'skor_kredit_slik',
-            'capacity'   => 'capacity',
-            'capital'    => 'capital',
-            'collateral' => 'collateral',
-            'condition'  => 'condition',
+            'character'  => 'skor_kredit',
+            'capacity'   => 'rasio_cicilan',
+            'capital'    => 'aset_bersih',
+            'collateral' => 'ltv_ratio',
+            'condition'  => 'kondisi_ekonomi',
         ];
         $key = $keyMap[$param] ?? $param;
         return $fuzz[$key][$himpunan] ?? 0.0;
@@ -167,12 +167,12 @@ class FuzzyTsukamoto
         $keputusan   = $nilaiDefuzz >= 50 ? 'Layak' : 'Tidak Layak';
 
         // Hitung skor per komponen 5C (0-100)
-        // Skor komponen default (Tidak Layak = 0, Layak = 50, Sangat Layak = 100)
-        $skorChar  = $this->hitungSkorKomponen($fuzz['skor_kredit_slik'] ?? [], ['S1'=>100,'S2'=>50,'S3'=>0]);
-        $skorCap   = $this->hitungSkorKomponen($fuzz['capacity']         ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
-        $skorCapit = $this->hitungSkorKomponen($fuzz['capital']          ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
-        $skorColl  = $this->hitungSkorKomponen($fuzz['collateral']       ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
-        $skorCond  = $this->hitungSkorKomponen($fuzz['condition']        ?? [], ['Sangat Layak'=>100,'Layak'=>50,'Tidak Layak'=>0]);
+        // Gunakan nilai input langsung agar sama dengan skor 0-100 di form input
+        $skorChar  = $skorKreditSlik == 1 ? 100 : ($skorKreditSlik == 2 ? 50 : 0);
+        $skorCap   = $capacity;
+        $skorCapit = $capital;
+        $skorColl  = $collateral;
+        $skorCond  = $condition;
 
         return [
             'fuzzifikasi'         => $fuzz,

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Review Analisis')
 @section('page-title', 'Review & Approval Analisis')
-@section('page-subtitle', $approval->calonNasabah->nama . ' — ' . $approval->created_at->format('d M Y'))
+@section('page-subtitle', $approval->calonNasabah->nama . ' — ' . ($approval->created_at ? $approval->created_at->format('d M Y') : '-'))
 
 @section('content')
 
@@ -77,7 +77,7 @@
             </div>
             <div class="flex justify-between py-1.5">
                 <dt class="text-xs text-slate-500">Tanggal Analisis</dt>
-                <dd class="text-xs font-semibold text-slate-800">{{ $approval->created_at->format('d M Y, H:i') }}</dd>
+                <dd class="text-xs font-semibold text-slate-800">{{ $approval->created_at ? $approval->created_at->format('d M Y, H:i') : '-' }}</dd>
             </div>
         </dl>
     </div>

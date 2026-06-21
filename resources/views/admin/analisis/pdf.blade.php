@@ -80,7 +80,7 @@
     <div class="skor">
         Skor Defuzzifikasi: <strong>{{ number_format($hasilAnalisis->nilai_defuzzifikasi, 4) }}</strong>
         &nbsp;|&nbsp; Kelayakan: <strong>{{ number_format($hasilAnalisis->persentase_kelayakan, 2) }}%</strong>
-        &nbsp;|&nbsp; Threshold: 50 &nbsp;|&nbsp; Tanggal: {{ $hasilAnalisis->created_at->format('d M Y, H:i') }}
+        &nbsp;|&nbsp; Threshold: 50 &nbsp;|&nbsp; Tanggal: {{ $hasilAnalisis->created_at ? $hasilAnalisis->created_at->format('d M Y, H:i') : '-' }}
     </div>
 </div>
 
@@ -245,7 +245,7 @@
 
 <div class="footer">
     Dokumen ini digenerate otomatis oleh FuzzyKredit &bull; Sistem Penentu Kelayakan Kredit Metode Fuzzy Tsukamoto 5C &bull;
-    Analis: {{ $hasilAnalisis->user->name }} &bull; {{ $hasilAnalisis->created_at->format('d M Y, H:i') }}
+    Analis: {{ $hasilAnalisis->user->name }} &bull; {{ $hasilAnalisis->created_at ? $hasilAnalisis->created_at->format('d M Y, H:i') : '-' }}
 </div>
 
 </body>

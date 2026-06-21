@@ -34,14 +34,16 @@ class HasilAnalisisController extends Controller
         return view('admin.analisis.index', compact('hasilAnalisis', 'analisList'));
     }
 
-    public function show(HasilAnalisis $hasilAnalisis)
+    public function show(HasilAnalisis $analisis)
     {
+        $hasilAnalisis = $analisis;
         $hasilAnalisis->load(['user', 'calonNasabah']);
         return view('admin.analisis.show', compact('hasilAnalisis'));
     }
 
-    public function exportPdf(HasilAnalisis $hasilAnalisis)
+    public function exportPdf(HasilAnalisis $analisis)
     {
+        $hasilAnalisis = $analisis;
         $hasilAnalisis->load(['calonNasabah', 'user']);
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.analisis.pdf', compact('hasilAnalisis'))
             ->setPaper('a4', 'portrait');
@@ -49,8 +51,9 @@ class HasilAnalisisController extends Controller
         return $pdf->download($filename);
     }
 
-    public function destroy(HasilAnalisis $hasilAnalisis)
+    public function destroy(HasilAnalisis $analisis)
     {
+        $hasilAnalisis = $analisis;
         $hasilAnalisis->delete();
         return redirect()->route('admin.analisis.index')->with('success', 'Data analisis berhasil dihapus.');
     }

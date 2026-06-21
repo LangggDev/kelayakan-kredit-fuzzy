@@ -1,59 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏦 FuzzyKredit - Sistem Kelayakan Kredit (Fuzzy Tsukamoto 5C)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+FuzzyKredit adalah aplikasi berbasis web yang dikembangkan menggunakan **Laravel** untuk membantu proses analisis kelayakan pemberian kredit. Sistem ini menggunakan metode **Fuzzy Tsukamoto** dan analisis **5C (Character, Capacity, Capital, Collateral, Condition)** untuk memberikan rekomendasi keputusan kredit yang akurat, objektif, dan otomatis.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Analisis Kelayakan Kredit Otomatis**: Menggunakan logika Fuzzy Tsukamoto untuk menghitung skor dan persentase kelayakan nasabah secara dinamis.
+- **Manajemen Kriteria 5C Terpadu**: Evaluasi yang komprehensif berdasarkan Karakter (SLIK OJK), Kapasitas Pembayaran (DSCR), Modal (Rasio Aset/Pinjaman), Agunan (LTV), dan Kondisi Ekonomi.
+- **Workflow Persetujuan Bertingkat (Approval)**: Mengotomatisasi alur kerja mulai dari input Analis Kredit hingga *approval* oleh Kepala Cabang.
+- **Multi-Role Authentication**: 
+  - 👨‍💼 **Admin**: Mengelola pengguna, parameter fuzzy, *rule* (aturan), dan pengaturan batas konversi (*threshold*).
+  - 🕵️‍♂️ **Analis Kredit**: Menginput data nasabah, memproses perhitungan fuzzy, dan membuat catatan rekomendasi analitis.
+  - 👔 **Kepala Cabang**: Me-review hasil analisis dan memberikan persetujuan akhir (*approval*).
+  - 📊 **Marketing**: Mengakses hasil akhir analisis yang telah disetujui untuk di-follow up.
+- **Export PDF**: Kemudahan mengekspor Laporan Hasil Analisis ke dalam format dokumen PDF yang rapi dan siap cetak.
+- **UI/UX Modern & Elegan**: Antarmuka responsif dan estetik dibangun menggunakan Vanilla CSS & Tailwind CSS styling.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Teknologi yang Digunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Framework**: [Laravel 12.x](https://laravel.com/)
+- **Bahasa Pemrograman**: PHP 8.2+
+- **Database**: MySQL / MariaDB
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Ikon**: FontAwesome 6
+- **PDF Generator**: `barryvdh/laravel-dompdf`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🚀 Panduan Instalasi (Local Development)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Ikuti langkah-langkah di bawah ini untuk menjalankan FuzzyKredit di mesin lokal (localhost) Anda:
 
-### Premium Partners
+### Persyaratan Sistem
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL / MariaDB (XAMPP/Laragon)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Langkah Instalasi
 
-## Contributing
+1. **Clone repositori**
+   ```bash
+   git clone https://github.com/username/fuzzy-kredit.git
+   cd fuzzy-kredit
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Install dependensi PHP**
+   ```bash
+   composer install
+   ```
 
-## Code of Conduct
+3. **Install dependensi Node.js & Compile Asset**
+   ```bash
+   npm install
+   npm run build
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Konfigurasi Environment**
+   - Salin file `.env.example` menjadi `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Sesuaikan konfigurasi database Anda di dalam file `.env`:
+     ```env
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=fuzzy_kredit
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
 
-## Security Vulnerabilities
+5. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **Migrasi Database & Seeder**
+   Pastikan Anda sudah membuat database kosong (misal: `fuzzy_kredit`), lalu jalankan:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+   *(Perintah ini akan membuat semua struktur tabel sekaligus mengisi data awal (dummy) akun, parameter, rule fuzzy, dan parameter konversi).*
 
-## License
+7. **Jalankan Aplikasi**
+   ```bash
+   php artisan serve
+   ```
+   Aplikasi kini dapat diakses di **`http://localhost:8000`**.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🔑 Akun Uji Coba (Seeder)
+
+Setelah melakukan *database seeding*, Anda dapat masuk (login) menggunakan akun default berikut:
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@fuzzykredit.com` | `password` |
+| **Analis Kredit** | `analis@fuzzykredit.com` | `password` |
+| **Kepala Cabang** | `kepcab@fuzzykredit.com` | `password` |
+| **Marketing** | `marketing@fuzzykredit.com` | `password` |
+
+---
+
+## 📖 Alur Kerja Aplikasi (Workflow)
+
+1. **Analis Kredit** membuat entri analisis baru untuk seorang calon nasabah dengan mengisikan rincian pendapatan, pinjaman, dan kondisi agunan (Parameter 5C).
+2. Sistem secara otomatis akan menghitung tahap **Fuzzifikasi, Inferensi Rule, dan Defuzzifikasi (Weighted Average)** dari algoritma Tsukamoto untuk menghasilkan kesimpulan apakah nasabah **"Layak"** atau **"Tidak Layak"**.
+3. Jika hasilnya **Tidak Layak**, laporan akan langsung disimpan tanpa butuh persetujuan.
+4. Jika hasilnya **Layak**, laporan akan diteruskan dengan status *Menunggu Persetujuan*.
+5. **Kepala Cabang** *login* dan melihat daftar analisis yang *menunggu*, meninjau rincian nilai 5C, kemudian membubuhkan tanda tangan persetujuan secara digital.
+6. Setelah disetujui penuh, **Marketing** dapat melihat dan mengekspor hasilnya sebagai laporan final ke dalam file PDF.
+
+---
+
+## 📜 Lisensi
+
+Aplikasi ini menggunakan lisensi *open-source* di bawah [MIT license](https://opensource.org/licenses/MIT). Silakan digunakan, dimodifikasi, dan didistribusikan secara bebas.

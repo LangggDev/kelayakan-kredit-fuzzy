@@ -171,10 +171,21 @@ class AnalisisController extends Controller
             (float) $request->condition
         );
 
+        // Jika Slik = 3 (Bad/Worst), otomatis hasil tidak layak
+        if ((int) $request->skor_kredit_slik === 3) {
+            $hasil['keputusan'] = 'Tidak Layak';
+            $hasil['persentase_kelayakan'] = 0;
+            $hasil['nilai_defuzzifikasi'] = 0;
+            $catatanOtomatis = 'Otomatis Tidak Layak karena Tipe SLIK adalah Bad/Worst.';
+        }
+
         $catatan = $request->catatan;
+        if (isset($catatanOtomatis)) {
+            $catatan = $catatan ? $catatanOtomatis . "\n" . $catatan : $catatanOtomatis;
+        }
         if ($revisiDariId) {
             $keterangan = "Analisis ulang dari #$revisiDariId.";
-            $catatan = $catatan ? "$keterangan $catatan" : $keterangan;
+            $catatan = $catatan ? "$keterangan\n$catatan" : $keterangan;
         }
 
         $hasilAnalisis = HasilAnalisis::create([

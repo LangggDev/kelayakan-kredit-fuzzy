@@ -20,7 +20,7 @@ class UserController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', "%{$request->search}%")
-                  ->orWhere('nik',  'like', "%{$request->search}%");
+                    ->orWhere('nik', 'like', "%{$request->search}%");
             });
         }
 
@@ -40,24 +40,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'nik'      => 'required|string|max:20|unique:users,nik',
-            'email'    => 'nullable|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:20|unique:users,nik',
+            'email' => 'nullable|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
-            'role'     => 'required|in:analis,kepala_cabang,marketing',
-            'telepon'  => 'nullable|string|max:20',
+            'role' => 'required|in:analis,kepala_cabang,marketing',
+            'telepon' => 'nullable|string|max:20',
         ], [
             'nik.required' => 'NIK wajib diisi.',
-            'nik.unique'   => 'NIK sudah terdaftar.',
+            'nik.unique' => 'NIK sudah terdaftar.',
             'password.min' => 'Password minimal 8 karakter.',
         ]);
 
         $user = User::create([
-            'name'      => $request->name,
-            'nik'       => $request->nik,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password),
-            'role'      => $request->role,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
             'is_active' => $request->boolean('is_active', true),
         ]);
 
@@ -76,22 +76,22 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'nik'      => 'required|string|max:20|unique:users,nik,' . $user->id,
-            'email'    => 'nullable|email|unique:users,email,' . $user->id,
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:20|unique:users,nik,' . $user->id,
+            'email' => 'nullable|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8|confirmed',
-            'role'     => 'required|in:analis,kepala_cabang,marketing',
-            'telepon'  => 'nullable|string|max:20',
+            'role' => 'required|in:analis,kepala_cabang,marketing',
+            'telepon' => 'nullable|string|max:20',
         ], [
             'nik.required' => 'NIK wajib diisi.',
-            'nik.unique'   => 'NIK sudah digunakan pengguna lain.',
+            'nik.unique' => 'NIK sudah digunakan pengguna lain.',
         ]);
 
         $user->update([
-            'name'      => $request->name,
-            'nik'       => $request->nik,
-            'email'     => $request->email,
-            'role'      => $request->role,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'email' => $request->email,
+            'role' => $request->role,
             'is_active' => $request->boolean('is_active'),
         ]);
 
@@ -124,45 +124,45 @@ class UserController extends Controller
 
     private function createProfile(User $user, Request $request): void
     {
-        match($user->role) {
-            'analis'        => KreditAnalis::create([
-                                    'user_id' => $user->id,
-                                    'nip'     => $request->nip,
-                                    'jabatan' => $request->jabatan,
-                                    'telepon' => $request->telepon,
-                                ]),
+        match ($user->role) {
+            'analis' => KreditAnalis::create([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'jabatan' => $request->jabatan,
+                'telepon' => $request->telepon,
+            ]),
             'kepala_cabang' => KepalaCabang::create([
-                                    'user_id' => $user->id,
-                                    'nip'     => $request->nip,
-                                    'cabang'  => $request->cabang,
-                                    'telepon' => $request->telepon,
-                                ]),
-            'marketing'     => MarketingStaff::create([
-                                    'user_id' => $user->id,
-                                    'nip'     => $request->nip,
-                                    'area'    => $request->area,
-                                    'telepon' => $request->telepon,
-                                ]),
-            default         => null,
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'cabang' => $request->cabang,
+                'telepon' => $request->telepon,
+            ]),
+            'marketing' => MarketingStaff::create([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'area' => $request->area,
+                'telepon' => $request->telepon,
+            ]),
+            default => null,
         };
     }
 
     private function updateProfile(User $user, Request $request): void
     {
-        match($user->role) {
-            'analis'        => $user->kreditAnalis()->updateOrCreate(
-                                    ['user_id' => $user->id],
-                                    ['nip' => $request->nip, 'jabatan' => $request->jabatan, 'telepon' => $request->telepon]
-                                ),
+        match ($user->role) {
+            'analis' => $user->kreditAnalis()->updateOrCreate(
+                ['user_id' => $user->id],
+                ['nip' => $request->nip, 'jabatan' => $request->jabatan, 'telepon' => $request->telepon]
+            ),
             'kepala_cabang' => $user->kepalaCabang()->updateOrCreate(
-                                    ['user_id' => $user->id],
-                                    ['nip' => $request->nip, 'cabang' => $request->cabang, 'telepon' => $request->telepon]
-                                ),
-            'marketing'     => $user->marketingStaff()->updateOrCreate(
-                                    ['user_id' => $user->id],
-                                    ['nip' => $request->nip, 'area' => $request->area, 'telepon' => $request->telepon]
-                                ),
-            default         => null,
+                ['user_id' => $user->id],
+                ['nip' => $request->nip, 'cabang' => $request->cabang, 'telepon' => $request->telepon]
+            ),
+            'marketing' => $user->marketingStaff()->updateOrCreate(
+                ['user_id' => $user->id],
+                ['nip' => $request->nip, 'area' => $request->area, 'telepon' => $request->telepon]
+            ),
+            default => null,
         };
     }
 }

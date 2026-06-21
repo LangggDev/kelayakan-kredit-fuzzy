@@ -26,10 +26,11 @@
             <thead>
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">R#</th>
-                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Penghasilan</th>
-                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Tanggungan</th>
-                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Pinjaman</th>
-                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Jangka Waktu</th>
+                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Character</th>
+                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Capacity</th>
+                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Capital</th>
+                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Collateral</th>
+                    <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Condition</th>
                     <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Hasil</th>
                     <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Output Tipe</th>
                     <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Status</th>
@@ -40,19 +41,20 @@
                 @forelse($rules as $rule)
                 @php
                 $himpunanColor = [
-                    'rendah'=>'bg-red-50 text-red-700', 'sedikit'=>'bg-green-50 text-green-700',
-                    'kecil'=>'bg-green-50 text-green-700', 'pendek'=>'bg-green-50 text-green-700',
-                    'sedang'=>'bg-yellow-50 text-yellow-700',
-                    'tinggi'=>'bg-blue-50 text-blue-700', 'banyak'=>'bg-red-50 text-red-700',
-                    'besar'=>'bg-red-50 text-red-700', 'lama'=>'bg-red-50 text-red-700',
-                    'any'=>'bg-slate-100 text-slate-500',
+                    'baik' => 'bg-blue-50 text-blue-700',
+                    'cukup' => 'bg-yellow-50 text-yellow-700',
+                    'buruk' => 'bg-red-50 text-red-700',
+                    'sangat layak' => 'bg-green-50 text-green-700',
+                    'layak' => 'bg-blue-50 text-blue-700',
+                    'tidak layak' => 'bg-red-50 text-red-700',
+                    'any' => 'bg-slate-100 text-slate-500',
                 ];
                 @endphp
                 <tr class="table-row">
                     <td class="px-4 py-3.5 text-center">
                         <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center mx-auto">{{ $rule->nomor_rule }}</span>
                     </td>
-                    @foreach([$rule->penghasilan, $rule->tanggungan, $rule->pinjaman, $rule->jangka_waktu] as $val)
+                    @foreach([$rule->character, $rule->capacity, $rule->capital, $rule->collateral, $rule->condition] as $val)
                     <td class="px-4 py-3.5 text-center">
                         <span class="px-2 py-0.5 rounded-full text-xs font-semibold capitalize {{ $himpunanColor[$val] ?? 'bg-slate-100 text-slate-600' }}">{{ $val }}</span>
                     </td>
@@ -95,10 +97,10 @@
 <div class="card p-4">
     <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Keterangan Warna Himpunan</p>
     <div class="flex flex-wrap gap-2">
-        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-700">sedikit / kecil / pendek</span>
-        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-700">sedang</span>
-        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">tinggi</span>
-        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700">rendah / banyak / besar / lama</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-700">sangat layak</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">baik / layak</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-700">cukup</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700">buruk / tidak layak</span>
         <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">any (semua)</span>
     </div>
 </div>

@@ -14,12 +14,12 @@
     <form action="{{ route('analis.store') }}" method="POST" id="analisisForm">
         @csrf
 
-        {{-- MODE NASABAH --}}
+        {{-- MODE Debitur --}}
         <div class="card p-6 mb-6">
             <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2">
                 <span
                     class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center">1</span>
-                Pilih Mode Input Nasabah
+                Pilih Mode Input Debitur
             </h3>
             <div class="grid grid-cols-2 gap-3">
                 <label
@@ -29,8 +29,8 @@
                         <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center"><i
                                 class="fa-solid fa-user-plus text-indigo-600 text-sm"></i></div>
                         <div>
-                            <div class="font-semibold text-slate-700 text-sm">Nasabah Baru</div>
-                            <div class="text-xs text-slate-400">Input data nasabah baru</div>
+                            <div class="font-semibold text-slate-700 text-sm">Debitur Baru</div>
+                            <div class="text-xs text-slate-400">Input data debitur baru</div>
                         </div>
                     </div>
                 </label>
@@ -41,7 +41,7 @@
                         <div class="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center"><i
                                 class="fa-solid fa-user-check text-violet-600 text-sm"></i></div>
                         <div>
-                            <div class="font-semibold text-slate-700 text-sm">Nasabah Terdaftar</div>
+                            <div class="font-semibold text-slate-700 text-sm">Debitur Terdaftar</div>
                             <div class="text-xs text-slate-400">Pilih dari data yang ada</div>
                         </div>
                     </div>
@@ -49,18 +49,18 @@
             </div>
         </div>
 
-        {{-- DATA NASABAH --}}
+        {{-- DATA DEBITUR --}}
         <div class="card p-6 mb-6">
             <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2">
                 <span
                     class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center">2</span>
-                Data Calon Nasabah
+                Data Calon Debitur
             </h3>
             <div id="existingSection" class="hidden">
-                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pilih Nasabah Terdaftar</label>
+                <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pilih Debitur Terdaftar</label>
                 <select name="calon_nasabah_id"
                     class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50">
-                    <option value="">-- Pilih Nasabah --</option>
+                    <option value="">-- Pilih Debitur --</option>
                     @foreach($nasabahList as $n)
                         <option value="{{ $n->id }}" {{ old('calon_nasabah_id') == $n->id ? 'selected' : '' }}>{{ $n->nama }}
                             ({{ $n->nik }})</option>
@@ -115,7 +115,7 @@
                             class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                             C1</div>
                         <div>
-                            <div class="font-semibold text-slate-800 text-sm">Character — Karakter Nasabah</div>
+                            <div class="font-semibold text-slate-800 text-sm">Character — Karakter Debitur</div>
                             <div class="text-xs text-slate-500">Riwayat kredit berdasarkan BI Checking / SLIK OJK</div>
                         </div>
                     </div>
@@ -136,7 +136,8 @@
                             <div class="bg-blue-50 rounded-xl p-4">
                                 <p class="text-xs font-semibold text-slate-500 mb-2">Keterangan SLIK</p>
                                 <div class="mt-2">
-                                    <span class="text-sm font-bold text-green-600" id="slikLabel">✅ 1 — Excellent / Very Good / Good</span>
+                                    <span class="text-sm font-bold text-green-600" id="slikLabel">✅ 1 — Excellent / Very
+                                        Good / Good</span>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +237,7 @@
                             C3</div>
                         <div>
                             <div class="font-semibold text-slate-800 text-sm">Capital — Modal / Kekayaan Bersih</div>
-                            <div class="text-xs text-slate-500">Total aset dikurangi total kewajiban/hutang nasabah</div>
+                            <div class="text-xs text-slate-500">Total aset dikurangi total kewajiban/hutang debitur</div>
                         </div>
                     </div>
                     <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -347,7 +348,7 @@
                             C5</div>
                         <div>
                             <div class="font-semibold text-slate-800 text-sm">Condition — Kondisi Ekonomi</div>
-                            <div class="text-xs text-slate-500">Penilaian kondisi ekonomi makro dan sektor usaha nasabah
+                            <div class="text-xs text-slate-500">Penilaian kondisi ekonomi makro dan sektor usaha debitur
                             </div>
                         </div>
                     </div>
@@ -373,7 +374,8 @@
                                     <div class="flex justify-between"><span class="text-yellow-600 font-medium">51 –
                                             89</span><span class="text-slate-600">Layak (Kondisi Normal)</span></div>
                                     <div class="flex justify-between"><span class="text-green-600 font-medium">90 –
-                                            100</span><span class="text-slate-600">Sangat Layak (Kondisi Sangat Baik)</span></div>
+                                            100</span><span class="text-slate-600">Sangat Layak (Kondisi Sangat Baik)</span>
+                                    </div>
                                 </div>
                                 <div class="mt-2 pt-2 border-t border-rose-200">
                                     <span class="text-sm font-bold text-rose-700" id="condLabel">Baik ✓</span>

@@ -55,7 +55,7 @@
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">Tanggal</th>
-                            <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">Nasabah</th>
+                            <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">Debitur</th>
                             <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">NIK</th>
                             <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">Keputusan</th>
                             <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500">Skor</th>

@@ -30,16 +30,17 @@
                     <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">IF</span>
                     Kondisi Anteseden
                 </p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     @php
                     $options = [
-                        'penghasilan'  => ['rendah','sedang','tinggi','any'],
-                        'tanggungan'   => ['sedikit','sedang','banyak','any'],
-                        'pinjaman'     => ['kecil','sedang','besar','any'],
-                        'jangka_waktu' => ['pendek','sedang','lama','any'],
+                        'character'  => ['baik', 'cukup', 'buruk', 'any'],
+                        'capacity'   => ['sangat layak', 'layak', 'tidak layak', 'any'],
+                        'capital'    => ['sangat layak', 'layak', 'tidak layak', 'any'],
+                        'collateral' => ['sangat layak', 'layak', 'tidak layak', 'any'],
+                        'condition'  => ['sangat layak', 'layak', 'tidak layak', 'any'],
                     ];
-                    $labels = ['penghasilan'=>'Penghasilan','tanggungan'=>'Tanggungan','pinjaman'=>'Pinjaman','jangka_waktu'=>'Jangka Waktu'];
-                    $current = ['penghasilan'=>$rule->penghasilan,'tanggungan'=>$rule->tanggungan,'pinjaman'=>$rule->pinjaman,'jangka_waktu'=>$rule->jangka_waktu];
+                    $labels = ['character'=>'C1 — Character','capacity'=>'C2 — Capacity','capital'=>'C3 — Capital','collateral'=>'C4 — Collateral','condition'=>'C5 — Condition'];
+                    $current = ['character'=>$rule->character,'capacity'=>$rule->capacity,'capital'=>$rule->capital,'collateral'=>$rule->collateral,'condition'=>$rule->condition];
                     @endphp
                     @foreach($options as $field => $opts)
                     <div>

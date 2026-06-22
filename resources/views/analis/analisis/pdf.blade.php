@@ -80,7 +80,7 @@
     <div class="skor">
         Skor Defuzzifikasi: <strong>{{ number_format($hasilAnalisis->nilai_defuzzifikasi, 4) }}</strong>
         &nbsp;|&nbsp; Kelayakan: <strong>{{ number_format($hasilAnalisis->persentase_kelayakan, 2) }}%</strong>
-        &nbsp;|&nbsp; Threshold: 50 &nbsp;|&nbsp; Tanggal: {{ $hasilAnalisis->created_at ? $hasilAnalisis->created_at->format('d M Y, H:i') : '-' }}
+        &nbsp;|&nbsp; Threshold: > 70 &nbsp;|&nbsp; Tanggal: {{ $hasilAnalisis->created_at ? $hasilAnalisis->created_at->format('d M Y, H:i') : '-' }}
     </div>
 </div>
 
@@ -230,7 +230,7 @@
     <div class="formula">
         z* = &Sigma;(&alpha;i &times; zi) / &Sigma;(&alpha;i) = {{ number_format($sumAZ,4) }} / {{ number_format($sumA,4) }} = <strong>{{ number_format($hasilAnalisis->nilai_defuzzifikasi,4) }}</strong>
         &nbsp;&nbsp;|&nbsp;&nbsp; Kelayakan = <strong>{{ number_format($hasilAnalisis->persentase_kelayakan,2) }}%</strong>
-        &nbsp;&nbsp;|&nbsp;&nbsp; Threshold = 50
+        &nbsp;&nbsp;|&nbsp;&nbsp; Threshold: > 70
         &nbsp;&nbsp;|&nbsp;&nbsp; <strong style="color:{{ $hasilAnalisis->keputusan==='Layak'?'#15803d':'#dc2626' }}">{{ $hasilAnalisis->keputusan }}</strong>
     </div>
 </div>

@@ -36,9 +36,9 @@
             </label>
             <div class="relative">
                 <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="20" class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                        {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required autofocus
-                    autocomplete="username">
+                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8" class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
+                                {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
+                    autofocus autocomplete="username">
             </div>
             @error('nik')
                 <p class="text-xs text-red-600 mt-1 flex items-center gap-1">
@@ -55,7 +55,7 @@
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                 <input type="password" name="password" id="pwdInput" placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                        {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
+                                {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
                     autocomplete="current-password">
                 <button type="button" onclick="togglePwd()"
                     class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
@@ -100,7 +100,7 @@
     <div class="mt-5 pt-5 border-t border-slate-100">
         <p class="text-xs text-slate-400 text-center mb-3 font-semibold uppercase tracking-wider">Demo Akun</p>
         <div class="grid grid-cols-2 gap-2">
-            <button onclick="fillLogin('3171021508900001','admin123')"
+            <button onclick="fillLogin('84729103','admin123')"
                 class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
                 style="background:#eef1f8; border-color:#d5ddef">
                 <div class="flex items-center gap-2 mb-1">
@@ -112,7 +112,7 @@
                 <div class="text-xs text-slate-400">Pass: admin123</div>
             </button>
 
-            <button onclick="fillLogin('3273016005850002','analis123')"
+            <button onclick="fillLogin('39102847','analis123')"
                 class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
                 style="background:#dbeafe; border-color:#bfdbfe">
                 <div class="flex items-center gap-2 mb-1">
@@ -124,7 +124,7 @@
                 <div class="text-xs text-slate-400">Pass: analis123</div>
             </button>
 
-            <button onclick="fillLogin('3301010101000003','kc12345678')"
+            <button onclick="fillLogin('57281940','kc12345678')"
                 class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
                 style="background:#fef9ee; border-color:#fde68a">
                 <div class="flex items-center gap-2 mb-1">
@@ -136,7 +136,7 @@
                 <div class="text-xs text-slate-400">Pass: kc12345678</div>
             </button>
 
-            <button onclick="fillLogin('3578015012950004','mkt12345678')"
+            <button onclick="fillLogin('10394857','mkt12345678')"
                 class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
                 style="background:#f0fdf4; border-color:#bbf7d0">
                 <div class="flex items-center gap-2 mb-1">

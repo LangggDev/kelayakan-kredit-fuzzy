@@ -24,9 +24,10 @@
             </select>
             <select name="keputusan"
                 class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white">
-                <option value="">Semua Keputusan Fuzzy</option>
+                <option value="">Semua Keputusan</option>
                 <option value="Layak" {{ request('keputusan') === 'Layak' ? 'selected' : '' }}>Layak</option>
-                <option value="Tidak Layak" {{ request('keputusan') === 'Tidak Layak' ? 'selected' : '' }}>Tidak Layak</option>
+                <option value="Tidak Layak" {{ request('keputusan') === 'Tidak Layak' ? 'selected' : '' }}>Tidak Layak
+                </option>
             </select>
             <button type="submit"
                 class="btn-primary px-5 py-2.5 rounded-xl text-white font-semibold text-sm flex items-center gap-2">
@@ -56,7 +57,7 @@
                         <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                             Skor</th>
                         <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                            Keputusan Fuzzy</th>
+                            Keputusan</th>
                         <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                             Status Approval</th>
                         <th class="text-right px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase tracking-wider">

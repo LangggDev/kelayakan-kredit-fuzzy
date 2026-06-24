@@ -30,17 +30,17 @@ class RuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_rule'  => 'required|integer|unique:rule_fuzzy,nomor_rule',
-            'character'   => 'required|in:baik,cukup,buruk,any',
-            'capacity'    => 'required|in:sangat layak,layak,tidak layak,any',
-            'capital'     => 'required|in:sangat layak,layak,tidak layak,any',
-            'collateral'  => 'required|in:sangat layak,layak,tidak layak,any',
-            'condition'   => 'required|in:sangat layak,layak,tidak layak,any',
-            'kelayakan'   => 'required|in:layak,tidak_layak',
+            'nomor_rule' => 'required|integer|unique:rule_fuzzy,nomor_rule',
+            'character' => 'required|in:excelent,medium,worst',
+            'capacity' => 'required|in:sangat layak,layak,tidak layak,any',
+            'capital' => 'required|in:sangat layak,layak,tidak layak,any',
+            'collateral' => 'required|in:sangat layak,layak,tidak layak,any',
+            'condition' => 'required|in:sangat layak,layak,tidak layak,any',
+            'kelayakan' => 'required|in:layak,tidak_layak',
             'output_tipe' => 'required|in:linear_naik,linear_turun',
-            'output_a'    => 'required|numeric',
-            'output_b'    => 'required|numeric',
-            'deskripsi'   => 'nullable|string',
+            'output_a' => 'required|numeric',
+            'output_b' => 'required|numeric',
+            'deskripsi' => 'nullable|string',
         ]);
 
         RuleFuzzy::create($request->all());
@@ -55,16 +55,16 @@ class RuleController extends Controller
     public function update(Request $request, RuleFuzzy $rule)
     {
         $request->validate([
-            'nomor_rule'  => 'required|integer|unique:rule_fuzzy,nomor_rule,' . $rule->id,
-            'character'   => 'required|in:baik,cukup,buruk,any',
-            'capacity'    => 'required|in:sangat layak,layak,tidak layak,any',
-            'capital'     => 'required|in:sangat layak,layak,tidak layak,any',
-            'collateral'  => 'required|in:sangat layak,layak,tidak layak,any',
-            'condition'   => 'required|in:sangat layak,layak,tidak layak,any',
-            'kelayakan'   => 'required|in:layak,tidak_layak',
+            'nomor_rule' => 'required|integer|unique:rule_fuzzy,nomor_rule,' . $rule->id,
+            'character' => 'required|in:excelent,medium,worst',
+            'capacity' => 'required|in:sangat layak,layak,tidak layak,any',
+            'capital' => 'required|in:sangat layak,layak,tidak layak,any',
+            'collateral' => 'required|in:sangat layak,layak,tidak layak,any',
+            'condition' => 'required|in:sangat layak,layak,tidak layak,any',
+            'kelayakan' => 'required|in:layak,tidak_layak',
             'output_tipe' => 'required|in:linear_naik,linear_turun',
-            'output_a'    => 'required|numeric',
-            'output_b'    => 'required|numeric',
+            'output_a' => 'required|numeric',
+            'output_b' => 'required|numeric',
         ]);
 
         $rule->update($request->all());

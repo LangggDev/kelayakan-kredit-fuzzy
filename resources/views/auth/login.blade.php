@@ -37,7 +37,7 @@
             <div class="relative">
                 <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                 <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8" class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                                {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
+                                    {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
                     autofocus autocomplete="username">
             </div>
             @error('nik')
@@ -55,8 +55,8 @@
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                 <input type="password" name="password" id="pwdInput" placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                                {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
-                    autocomplete="current-password">
+                                    {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}"
+                    required autocomplete="current-password">
                 <button type="button" onclick="togglePwd()"
                     class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                     <i class="fa-solid fa-eye text-sm" id="eyeIco"></i>
@@ -108,7 +108,7 @@
                         style="background:#1a2e5a">A</span>
                     <span class="text-xs font-bold" style="color:#1a2e5a">Administrator</span>
                 </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">3171021508900001</span></div>
+                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">84729103</span></div>
                 <div class="text-xs text-slate-400">Pass: admin123</div>
             </button>
 
@@ -120,7 +120,7 @@
                         style="background:#2563eb">KA</span>
                     <span class="text-xs font-bold text-blue-700">Kredit Analis</span>
                 </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">3273016005850002</span></div>
+                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">39102847</span></div>
                 <div class="text-xs text-slate-400">Pass: analis123</div>
             </button>
 
@@ -132,7 +132,7 @@
                         style="background:#d97706">KC</span>
                     <span class="text-xs font-bold text-amber-700">Kepala Cabang</span>
                 </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">3301010101000003</span></div>
+                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">57281940</span></div>
                 <div class="text-xs text-slate-400">Pass: kc12345678</div>
             </button>
 
@@ -144,7 +144,7 @@
                         style="background:#16a34a">MK</span>
                     <span class="text-xs font-bold text-green-700">Marketing</span>
                 </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">3578015012950004</span></div>
+                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">10394857</span></div>
                 <div class="text-xs text-slate-400">Pass: mkt12345678</div>
             </button>
         </div>

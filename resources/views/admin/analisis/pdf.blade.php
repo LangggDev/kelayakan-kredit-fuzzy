@@ -147,11 +147,11 @@
     <h2>Tahap 1: Fuzzifikasi</h2>
     @php
     $fuzzLabels = [
-        'skor_kredit'     => ['Character (C1)',  ['buruk'=>'Buruk','cukup'=>'Cukup','baik'=>'Baik']],
-        'rasio_cicilan'   => ['Capacity (C2)',   ['tinggi'=>'Tinggi','sedang'=>'Sedang','rendah'=>'Rendah']],
-        'aset_bersih'     => ['Capital (C3)',    ['kecil'=>'Kecil','sedang'=>'Sedang','besar'=>'Besar']],
-        'ltv_ratio'       => ['Collateral (C4)', ['rendah'=>'Rendah','sedang'=>'Sedang','tinggi'=>'Tinggi']],
-        'kondisi_ekonomi' => ['Condition (C5)',  ['buruk'=>'Buruk','cukup'=>'Cukup','baik'=>'Baik']],
+        'skor_kredit'     => ['Character (C1)',  ['buruk'=>'S3 (tipe Slik 3)','cukup'=>'S2 (tipe Slik 2)','baik'=>'S1 (tipe Slik 1)']],
+        'rasio_cicilan'   => ['Capacity (C2)',   ['tinggi'=>'Sangat Layak','sedang'=>'Layak','rendah'=>'Tidak Layak']],
+        'aset_bersih'     => ['Capital (C3)',    ['kecil'=>'Tidak Layak','sedang'=>'Layak','besar'=>'Sangat Layak']],
+        'ltv_ratio'       => ['Collateral (C4)', ['rendah'=>'Tidak Layak','sedang'=>'Layak','tinggi'=>'Sangat Layak']],
+        'kondisi_ekonomi' => ['Condition (C5)',  ['buruk'=>'Tidak Layak','cukup'=>'Layak','baik'=>'Sangat Layak']],
     ];
     @endphp
     <table class="data">

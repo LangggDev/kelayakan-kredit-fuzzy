@@ -177,7 +177,7 @@ class FuzzyTsukamoto
 
         // Hitung skor per komponen 5C (0-100)
         // Gunakan nilai input langsung agar sama dengan skor 0-100 di form input
-        $skorChar = $skorKreditSlik == 1 ? 100 : ($skorKreditSlik == 2 ? 50 : 0);
+        $skorChar = $skorKreditSlik; // Already mapped to 0-100 by controller
         $skorCap = $capacity;
         $skorCapit = $capital;
         $skorColl = $collateral;

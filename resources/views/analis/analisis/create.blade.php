@@ -463,17 +463,17 @@
                 else if (rasio >= capTL) score = 0;
                 else score = 100 - ((rasio - capSL) / (capTL - capSL)) * 100;
 
-                if (rasio <= capSL) { rasioEl.className = 'text-lg font-bold text-green-600'; capEl.textContent = '✅ Sangat Layak'; capEl.className = 'text-sm font-semibold text-green-600'; }
-                else if (rasio < capTL) { rasioEl.className = 'text-lg font-bold text-yellow-600'; capEl.textContent = '🟡 Layak'; capEl.className = 'text-sm font-semibold text-yellow-600'; }
-                else { rasioEl.className = 'text-lg font-bold text-red-600'; capEl.textContent = '⚠️ Tidak Layak'; capEl.className = 'text-sm font-semibold text-red-600'; }
+                if (score <= 50) { rasioEl.className = 'text-lg font-bold text-red-600'; capEl.textContent = '⚠️ Tidak Layak'; capEl.className = 'text-sm font-semibold text-red-600'; }
+                else if (score < 90) { rasioEl.className = 'text-lg font-bold text-yellow-600'; capEl.textContent = '🟡 Layak'; capEl.className = 'text-sm font-semibold text-yellow-600'; }
+                else { rasioEl.className = 'text-lg font-bold text-green-600'; capEl.textContent = '✅ Sangat Layak'; capEl.className = 'text-sm font-semibold text-green-600'; }
             } else {
                 if (rasio >= capSL) score = 100;
                 else if (rasio <= capTL) score = 0;
                 else score = ((rasio - capTL) / (capSL - capTL)) * 100;
 
-                if (rasio >= capSL) { rasioEl.className = 'text-lg font-bold text-green-600'; capEl.textContent = '✅ Sangat Layak'; capEl.className = 'text-sm font-semibold text-green-600'; }
-                else if (rasio > capTL) { rasioEl.className = 'text-lg font-bold text-yellow-600'; capEl.textContent = '🟡 Layak'; capEl.className = 'text-sm font-semibold text-yellow-600'; }
-                else { rasioEl.className = 'text-lg font-bold text-red-600'; capEl.textContent = '⚠️ Tidak Layak'; capEl.className = 'text-sm font-semibold text-red-600'; }
+                if (score <= 50) { rasioEl.className = 'text-lg font-bold text-red-600'; capEl.textContent = '⚠️ Tidak Layak'; capEl.className = 'text-sm font-semibold text-red-600'; }
+                else if (score < 90) { rasioEl.className = 'text-lg font-bold text-yellow-600'; capEl.textContent = '🟡 Layak'; capEl.className = 'text-sm font-semibold text-yellow-600'; }
+                else { rasioEl.className = 'text-lg font-bold text-green-600'; capEl.textContent = '✅ Sangat Layak'; capEl.className = 'text-sm font-semibold text-green-600'; }
             }
 
             document.getElementById('capacityInput').value = Math.round(score);
@@ -527,17 +527,17 @@
                 else if (ltv >= colTL) score = 0;
                 else score = 100 - ((ltv - colSL) / (colTL - colSL)) * 100;
 
-                if (ltv <= colSL) { ltvEl.className = 'text-xl font-bold text-green-600'; collEl.textContent = '✅ Agunan Sangat Layak'; collEl.className = 'text-xs font-semibold text-green-600'; }
-                else if (ltv < colTL) { ltvEl.className = 'text-xl font-bold text-yellow-600'; collEl.textContent = '🟡 Agunan Layak'; collEl.className = 'text-xs font-semibold text-yellow-600'; }
-                else { ltvEl.className = 'text-xl font-bold text-red-600'; collEl.textContent = '⚠️ Agunan Tidak Layak'; collEl.className = 'text-xs font-semibold text-red-600'; }
+                if (score <= 50) { ltvEl.className = 'text-xl font-bold text-red-600'; collEl.textContent = '⚠️ Agunan Tidak Layak'; collEl.className = 'text-xs font-semibold text-red-600'; }
+                else if (score < 90) { ltvEl.className = 'text-xl font-bold text-yellow-600'; collEl.textContent = '🟡 Agunan Layak'; collEl.className = 'text-xs font-semibold text-yellow-600'; }
+                else { ltvEl.className = 'text-xl font-bold text-green-600'; collEl.textContent = '✅ Agunan Sangat Layak'; collEl.className = 'text-xs font-semibold text-green-600'; }
             } else {
                 if (ltv >= colSL) score = 100;
                 else if (ltv <= colTL) score = 0;
                 else score = ((ltv - colTL) / (colSL - colTL)) * 100;
 
-                if (ltv >= colSL) { ltvEl.className = 'text-xl font-bold text-green-600'; collEl.textContent = '✅ Agunan Sangat Layak'; collEl.className = 'text-xs font-semibold text-green-600'; }
-                else if (ltv > colTL) { ltvEl.className = 'text-xl font-bold text-yellow-600'; collEl.textContent = '🟡 Agunan Layak'; collEl.className = 'text-xs font-semibold text-yellow-600'; }
-                else { ltvEl.className = 'text-xl font-bold text-red-600'; collEl.textContent = '⚠️ Agunan Tidak Layak'; collEl.className = 'text-xs font-semibold text-red-600'; }
+                if (score <= 50) { ltvEl.className = 'text-xl font-bold text-red-600'; collEl.textContent = '⚠️ Agunan Tidak Layak'; collEl.className = 'text-xs font-semibold text-red-600'; }
+                else if (score < 90) { ltvEl.className = 'text-xl font-bold text-yellow-600'; collEl.textContent = '🟡 Agunan Layak'; collEl.className = 'text-xs font-semibold text-yellow-600'; }
+                else { ltvEl.className = 'text-xl font-bold text-green-600'; collEl.textContent = '✅ Agunan Sangat Layak'; collEl.className = 'text-xs font-semibold text-green-600'; }
             }
 
             document.getElementById('collateralInput').value = Math.round(score);

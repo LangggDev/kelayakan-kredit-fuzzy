@@ -70,8 +70,8 @@ class FuzzyLogicSeeder extends Seeder
         }
 
         // 3. RULE FUZZY (32 Rule)
-        // Output Tidak Layak: linear_turun (a=0, b=70) -> z<70
-        // Output Layak: linear_naik (a=70, b=100) -> z>70
+        // Output Layak: linear_naik (a=70, b=100) -> z ranges 70-100
+        // Output Tidak Layak: linear_turun (a=0, b=70) -> z ranges 0-70
         $rules = [
             [1, 'S1', 'Sangat Layak', 'Sangat Layak', 'Sangat Layak', 'Sangat Layak', 'Layak', 70, 100, 'linear_naik'],
             [2, 'S1', 'Sangat Layak', 'Sangat Layak', 'Sangat Layak', 'Layak', 'Layak', 70, 100, 'linear_naik'],

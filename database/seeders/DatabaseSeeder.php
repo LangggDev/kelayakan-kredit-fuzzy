@@ -91,11 +91,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // C2 — CAPACITY: Rasio Cicilan / Penghasilan — DSCR (%)
+        // C2 — CAPACITY: Skor Kapasitas (0-100)
         $c2 = [
-            ['tinggi', 'linear_turun', 0, 30, null, 'Cicilan < 30% penghasilan, kemampuan bayar sangat baik'],
-            ['sedang', 'segitiga', 25, 37, 52, 'Cicilan 25-52% penghasilan, kemampuan bayar cukup'],
-            ['rendah', 'linear_naik', 40, 80, null, 'Cicilan > 40% penghasilan, beban terlalu berat'],
+            ['tinggi', 'linear_naik', 70, 90, null, 'Skor >= 90 (Sangat Layak)'],
+            ['sedang', 'segitiga', 50, 70, 90, 'Skor 50-90 (Layak, puncak di 70)'],
+            ['rendah', 'linear_turun', 50, 70, null, 'Skor <= 50 (Tidak Layak)'],
         ];
         foreach ($c2 as $p) {
             Parameter::create([
@@ -107,17 +107,17 @@ class DatabaseSeeder extends Seeder
                 'a' => $p[2],
                 'b' => $p[3],
                 'c' => $p[4],
-                'satuan' => '%',
+                'satuan' => 'skor',
                 'keterangan' => $p[5],
                 'is_active' => true,
             ]);
         }
 
-        // C3 — CAPITAL: Aset Bersih (Aset - Hutang) dalam Rp
+        // C3 — CAPITAL: Skor Modal (0-100)
         $c3 = [
-            ['kecil', 'linear_turun', 0, 50000000, null, 'Aset bersih < 50 juta, modal sangat terbatas'],
-            ['sedang', 'segitiga', 25000000, 100000000, 200000000, 'Aset bersih 25-200 juta, modal cukup'],
-            ['besar', 'linear_naik', 150000000, 500000000, null, 'Aset bersih > 150 juta, modal kuat'],
+            ['kecil', 'linear_turun', 50, 70, null, 'Skor <= 50 (Tidak Layak)'],
+            ['sedang', 'segitiga', 50, 70, 90, 'Skor 50-90 (Layak, puncak di 70)'],
+            ['besar', 'linear_naik', 70, 90, null, 'Skor >= 90 (Sangat Layak)'],
         ];
         foreach ($c3 as $p) {
             Parameter::create([
@@ -129,17 +129,17 @@ class DatabaseSeeder extends Seeder
                 'a' => $p[2],
                 'b' => $p[3],
                 'c' => $p[4],
-                'satuan' => 'Rp',
+                'satuan' => 'skor',
                 'keterangan' => $p[5],
                 'is_active' => true,
             ]);
         }
 
-        // C4 — COLLATERAL: LTV Ratio = (Pinjaman / Nilai Agunan) × 100 (%)
+        // C4 — COLLATERAL: Skor Agunan (0-100)
         $c4 = [
-            ['rendah', 'linear_naik', 80, 150, null, 'LTV > 80%, agunan tidak mencukupi pinjaman'],
-            ['sedang', 'segitiga', 60, 80, 115, 'LTV 60-115%, agunan cukup memadai'],
-            ['tinggi', 'linear_turun', 0, 70, null, 'LTV < 70%, agunan sangat kuat / over-collateral'],
+            ['rendah', 'linear_turun', 50, 70, null, 'Skor <= 50 (Tidak Layak)'],
+            ['sedang', 'segitiga', 50, 70, 90, 'Skor 50-90 (Layak, puncak di 70)'],
+            ['tinggi', 'linear_naik', 70, 90, null, 'Skor >= 90 (Sangat Layak)'],
         ];
         foreach ($c4 as $p) {
             Parameter::create([
@@ -151,17 +151,17 @@ class DatabaseSeeder extends Seeder
                 'a' => $p[2],
                 'b' => $p[3],
                 'c' => $p[4],
-                'satuan' => '%',
+                'satuan' => 'skor',
                 'keterangan' => $p[5],
                 'is_active' => true,
             ]);
         }
 
-        // C5 — CONDITION: Skor Kondisi Ekonomi & Sektor Usaha (0–100)
+        // C5 — CONDITION: Skor Kondisi Ekonomi (0-100)
         $c5 = [
-            ['buruk', 'linear_turun', 0, 40, null, 'Kondisi ekonomi lesu / resesi, risiko gagal bayar tinggi'],
-            ['cukup', 'segitiga', 30, 55, 75, 'Kondisi ekonomi normal / stabil'],
-            ['baik', 'linear_naik', 60, 100, null, 'Kondisi ekonomi tumbuh, sektor usaha prospektif'],
+            ['buruk', 'linear_turun', 50, 70, null, 'Skor <= 50 (Tidak Layak)'],
+            ['cukup', 'segitiga', 50, 70, 90, 'Skor 50-90 (Layak, puncak di 70)'],
+            ['baik', 'linear_naik', 70, 90, null, 'Skor >= 90 (Sangat Layak)'],
         ];
         foreach ($c5 as $p) {
             Parameter::create([
@@ -435,8 +435,8 @@ class DatabaseSeeder extends Seeder
                 'condition' => $r[5],
                 'kelayakan' => $r[6],
                 'output_tipe' => $r[7],
-                'output_a' => 0,
-                'output_b' => 100,
+                'output_a' => $r[6] === 'layak' ? 70 : 0,
+                'output_b' => $r[6] === 'layak' ? 100 : 70,
                 'deskripsi' => $r[8],
                 'is_active' => true,
             ]);

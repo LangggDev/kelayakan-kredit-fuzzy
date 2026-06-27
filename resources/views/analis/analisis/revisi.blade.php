@@ -342,9 +342,9 @@ function updateCondisi(v) {
     document.getElementById('kondisiInput').value = v;
     document.getElementById('kondisiRange').value = v;
     const el = document.getElementById('condLabel');
-    if (v <= 40) el.textContent = '⚠️ Buruk — Ekonomi Lesu';
-    else if (v <= 60) el.textContent = '🟡 Cukup — Kondisi Normal';
-    else el.textContent = '✅ Baik — Ekonomi Tumbuh';
+    if (v <= 50) el.textContent = '⚠️ Tidak Layak';
+    else if (v < 90) el.textContent = '🟡 Layak';
+    else el.textContent = '✅ Sangat Layak';
 }
 
 // Init

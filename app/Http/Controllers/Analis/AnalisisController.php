@@ -161,10 +161,17 @@ class AnalisisController extends Controller
             }
         }
 
+        // Map Slik 1, 2, 3 to Fuzzy Input (100, 55, 0)
+        $slikType = (int) $request->skor_kredit_slik;
+        $skorSlikMapped = 0;
+        if ($slikType === 1) $skorSlikMapped = 100; // Baik
+        elseif ($slikType === 2) $skorSlikMapped = 55; // Cukup
+        elseif ($slikType === 3) $skorSlikMapped = 0; // Buruk
+
         // Proses Fuzzy Tsukamoto
         $fuzzy = new FuzzyTsukamoto();
         $hasil = $fuzzy->proses(
-            (float) $request->skor_kredit_slik,
+            $skorSlikMapped,
             round($capacityScore),
             round($capitalScore),
             round($collateralScore),
@@ -193,9 +200,9 @@ class AnalisisController extends Controller
             'calon_nasabah_id'     => $nasabah->id,
             'skor_kredit'          => $request->skor_kredit_slik, // Simpan Slik 1/2/3
             'penghasilan'          => $request->penghasilan ?? 0,
-            'rasio_cicilan'        => round($capacityScore), // Simpan capacity di rasio_cicilan untuk kompatibilitas DB
-            'aset_bersih'          => round($capitalScore),  // Simpan capital di aset_bersih
-            'nilai_agunan'         => round($collateralScore), // Simpan collateral di nilai_agunan
+            'rasio_cicilan'        => isset($rasio) ? round($rasio, 4) : 0, // Simpan rasio cicilan asli (%)
+            'aset_bersih'          => $asetBersih, // Simpan aset bersih asli (Rp)
+            'nilai_agunan'         => $agunan, // Simpan nilai agunan asli (Rp)
             'jumlah_pinjaman'      => $request->jumlah_pinjaman ?? 0,
             'jangka_waktu'         => $request->jangka_waktu ?? 0,
             'kondisi_ekonomi'      => $request->condition, // Simpan condition

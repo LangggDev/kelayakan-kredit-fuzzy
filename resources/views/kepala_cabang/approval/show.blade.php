@@ -147,7 +147,16 @@
         <div class="card p-6 mb-6">
             <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2"><i
                     class="fa-solid fa-wave-square text-indigo-500"></i> Fuzzifikasi</h3>
-            @php $pm = ['skor_kredit' => ['Skor Kredit (Character)', 'bg-blue-50', 'bg-blue-500', 'text-blue-700'], 'rasio_cicilan' => ['Rasio Cicilan (Capacity)', 'bg-green-50', 'bg-green-500', 'text-green-700'], 'aset_bersih' => ['Aset Bersih (Capital)', 'bg-orange-50', 'bg-orange-500', 'text-orange-700'], 'ltv_ratio' => ['LTV Ratio (Collateral)', 'bg-purple-50', 'bg-purple-500', 'text-purple-700'], 'kondisi_ekonomi' => ['Kondisi Ekonomi (Condition)', 'bg-red-50', 'bg-red-500', 'text-red-700']]; @endphp
+            @php 
+                $pm = ['skor_kredit' => ['Skor Kredit (Character)', 'bg-blue-50', 'bg-blue-500', 'text-blue-700'], 'rasio_cicilan' => ['Rasio Cicilan (Capacity)', 'bg-green-50', 'bg-green-500', 'text-green-700'], 'aset_bersih' => ['Aset Bersih (Capital)', 'bg-orange-50', 'bg-orange-500', 'text-orange-700'], 'ltv_ratio' => ['LTV Ratio (Collateral)', 'bg-purple-50', 'bg-purple-500', 'text-purple-700'], 'kondisi_ekonomi' => ['Kondisi Ekonomi (Condition)', 'bg-red-50', 'bg-red-500', 'text-red-700']]; 
+                $himpunanMap = [
+                    'skor_kredit'     => ['buruk'=>'S3 (tipe Slik 3)','cukup'=>'S2 (tipe Slik 2)','baik'=>'S1 (tipe Slik 1)'],
+                    'rasio_cicilan'   => ['tinggi'=>'Sangat Layak','sedang'=>'Layak','rendah'=>'Tidak Layak'],
+                    'aset_bersih'     => ['kecil'=>'Tidak Layak','sedang'=>'Layak','besar'=>'Sangat Layak'],
+                    'ltv_ratio'       => ['rendah'=>'Tidak Layak','sedang'=>'Layak','tinggi'=>'Sangat Layak'],
+                    'kondisi_ekonomi' => ['buruk'=>'Tidak Layak','cukup'=>'Layak','baik'=>'Sangat Layak']
+                ];
+            @endphp
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach($approval->nilai_fuzzifikasi as $p => $vals)
                     @if(isset($pm[$p])) @php [$lbl, $bg, $bar, $txt] = $pm[$p]; @endphp
@@ -156,7 +165,7 @@
                             @foreach($vals as $h => $mu)
                                 <div class="mb-2">
                                     <div class="flex justify-between mb-1"><span
-                                            class="text-xs text-slate-600 capitalize">{{ $h }}</span><span
+                                            class="text-xs text-slate-600 capitalize">{{ $himpunanMap[$p][$h] ?? $h }}</span><span
                                             class="text-xs font-mono font-semibold {{ $txt }}">{{ number_format($mu, 4) }}</span></div>
                                     <div class="h-2 bg-white/60 rounded-full">
                                         <div class="{{ $bar }} h-full rounded-full" style="width:{{ $mu * 100 }}%"></div>

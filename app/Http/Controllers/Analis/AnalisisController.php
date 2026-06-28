@@ -243,7 +243,7 @@ class AnalisisController extends Controller
             abort(403);
         }
         $analisis->load(['calonNasabah', 'user']);
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('analis.analisis.pdf', compact('analisis'))
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('analis.analisis.pdf', ['hasilAnalisis' => $analisis])
             ->setPaper('a4', 'portrait');
         $filename = 'analisis-5c-' . $analisis->calonNasabah->nik . '-' . now()->format('Ymd') . '.pdf';
         return $pdf->download($filename);

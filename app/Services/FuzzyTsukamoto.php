@@ -176,8 +176,7 @@ class FuzzyTsukamoto
         $keputusan = $nilaiDefuzz > 70 ? 'Layak' : 'Tidak Layak';
 
         // Hitung skor per komponen 5C (0-100)
-        // Gunakan nilai input langsung agar sama dengan skor 0-100 di form input
-        $skorChar = $skorKreditSlik; // Already mapped to 0-100 by controller
+        $skorChar = $skorKreditSlik;
         $skorCap = $capacity;
         $skorCapit = $capital;
         $skorColl = $collateral;

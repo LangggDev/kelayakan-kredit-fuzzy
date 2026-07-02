@@ -108,7 +108,7 @@ class AnalisisController extends Controller
         $pinjaman = (float) $request->jumlah_pinjaman;
         $penghasilan = (float) $request->penghasilan;
         $jangka = (int) $request->jangka_waktu;
-        $asetBersih = (float) $request->aset_bersih ?? (($request->total_aset ?? 0) - ($request->total_hutang ?? 0));
+        $asetBersih = (float) ($request->aset_bersih ?? (($request->total_aset ?? 0) - ($request->total_hutang ?? 0)));
         $agunan = (float) $request->nilai_agunan;
 
         // Hitung C2 Capacity
@@ -242,7 +242,7 @@ class AnalisisController extends Controller
         if ($analisis->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
             abort(403);
         }
-        $analisis->load(['calonNasabah', 'user']);
+        $analisis->load(['calonNasabah', 'user', 'approvedBy']);
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('analis.analisis.pdf', ['hasilAnalisis' => $analisis])
             ->setPaper('a4', 'portrait');
         $filename = 'analisis-5c-' . $analisis->calonNasabah->nik . '-' . now()->format('Ymd') . '.pdf';

@@ -44,7 +44,7 @@ class HasilAnalisisController extends Controller
     public function exportPdf(HasilAnalisis $analisis)
     {
         $hasilAnalisis = $analisis;
-        $hasilAnalisis->load(['calonNasabah', 'user']);
+        $hasilAnalisis->load(['calonNasabah', 'user', 'approvedBy']);
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.analisis.pdf', compact('hasilAnalisis'))
             ->setPaper('a4', 'portrait');
         $filename = 'analisis-5c-' . $hasilAnalisis->calonNasabah->nik . '-' . $hasilAnalisis->created_at->format('Ymd') . '.pdf';

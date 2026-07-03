@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <style>
         * { font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: #0e1830; min-height: 100vh; }
+        body { background: #dddddd; min-height: 100vh; }
         .bg-pattern { background-image: radial-gradient(circle at 1px 1px, rgba(245,166,35,0.08) 1px, transparent 0); background-size: 32px 32px; }
         .glass { background: rgba(255,255,255,0.97); }
         .btn-primary { background: linear-gradient(135deg, #1a2e5a 0%, #2d4190 100%); transition: all 0.2s; }

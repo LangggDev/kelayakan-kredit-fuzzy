@@ -268,10 +268,10 @@
                         class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <i class="fa-solid fa-users w-4 text-center"></i> Pengguna
                     </a>
-                    <a href="{{ route('admin.parameter.index') }}"
+                    {{-- <a href="{{ route('admin.parameter.index') }}"
                         class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.parameter.*') ? 'active' : '' }}">
                         <i class="fa-solid fa-sliders w-4 text-center"></i> Parameter Fuzzy
-                    </a>
+                    </a> --}}
                     <a href="{{ route('admin.rules.index') }}"
                         class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('admin.rules.*') ? 'active' : '' }}">
                         <i class="fa-solid fa-code-branch w-4 text-center"></i> Rule Fuzzy

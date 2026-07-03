@@ -26,17 +26,17 @@
 
     <div class="w-full max-w-md float">
         {{-- Logo --}}
-        <div class="text-center mb-7">
+        {{-- <div class="text-center mb-7">
             <div class="text-2xl font-bold text-white">Mandiri Utama Finance</div>
             <div class="text-sm mt-1" style="color:#f5a623">Sistem Penentu Kelayakan Kredit</div>
-        </div>
+        </div> --}}
 
         {{-- Card --}}
         <div class="glass rounded-2xl shadow-2xl p-8">
             @yield('content')
         </div>
 
-        <p class="text-center text-xs mt-5" style="color:rgba(245,166,35,0.5)">
+        <p class="text-center text-xs mt-5" style="color:rgb(255, 255, 255)">
             &copy; {{ date('Y') }} PT Mandiri Utama Finance &mdash; Metode Fuzzy Tsukamoto 5C
         </p>
     </div>

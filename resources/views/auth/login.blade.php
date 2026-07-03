@@ -3,8 +3,12 @@
 
 @section('content')
 
-    <div class="text-center mb-6">
-        <h2 class="text-xl font-bold text-slate-800">Selamat Datang</h2>
+    <div class="text-center mb-3">
+        <h2 class="text-xl font-bold text-slate-800">Selamat Datang di</h2>
+        <div class="text-center mb-7 mt-2">
+            <div class="text-xl font-bold" style="color:#1a2e5a">Mandiri Utama Finance</div>
+            <div class="text-sm" style="color:#f5a623">Sistem Penentu Kelayakan Kredit</div>
+        </div>
         <p class="text-slate-500 text-sm mt-1">Masuk menggunakan NIK dan password Anda</p>
     </div>
 

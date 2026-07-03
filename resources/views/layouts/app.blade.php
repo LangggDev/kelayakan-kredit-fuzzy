@@ -237,7 +237,7 @@
             </div>
 
             {{-- User info --}}
-            <div class="px-4 py-3 border-b border-white/10">
+            {{-- <div class="px-4 py-3 border-b border-white/10">
                 <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/8"
                     style="background:rgba(255,255,255,0.08)">
                     <div
@@ -249,7 +249,7 @@
                         <div class="text-xs text-gold-400">{{ auth()->user()->role_label }}</div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Navigation --}}
             <nav class="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">

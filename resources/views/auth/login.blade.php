@@ -4,12 +4,10 @@
 @section('content')
 
     <div class="text-center mb-3">
-        <h2 class="text-xl font-bold text-slate-800">Selamat Datang di</h2>
         <div class="text-center mb-7 mt-2">
             <div class="text-xl font-bold" style="color:#1a2e5a">Mandiri Utama Finance</div>
             <div class="text-sm" style="color:#f5a623">Sistem Penentu Kelayakan Kredit</div>
         </div>
-        <p class="text-slate-500 text-sm mt-1">Masuk menggunakan NIK dan password Anda</p>
     </div>
 
     @if($errors->any())
@@ -40,8 +38,10 @@
             </label>
             <div class="relative">
                 <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8" class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                                    {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
+                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8" 
+                    inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                    class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
+                            {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
                     autofocus autocomplete="username">
             </div>
             @error('nik')

@@ -2,7 +2,6 @@
 
 @section('title', 'Data Analisis Disetujui')
 @section('page-title', 'Hasil Analisis Disetujui')
-@section('page-subtitle', 'Daftar hasil analisis yang sudah disetujui Kepala Cabang')
 
 @section('content')
 <div class="space-y-5">

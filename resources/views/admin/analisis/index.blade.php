@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Semua Hasil Analisis')
 @section('page-title', 'Semua Hasil Analisis')
-@section('page-subtitle', 'Seluruh data analisis kelayakan kredit 5C')
 
 @section('content')
 

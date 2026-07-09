@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Analisis Ulang')
 @section('page-title', 'Analisis Ulang — ' . $analisis->calonNasabah->nama)
-@section('page-subtitle', 'Perbaiki parameter dan kirim ulang untuk persetujuan Kepala Cabang')
 
 @section('content')
 

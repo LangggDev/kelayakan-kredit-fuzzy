@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard Marketing')
 @section('page-title', 'Dashboard Marketing')
-@section('page-subtitle', 'Lihat hasil analisis kelayakan kredit yang telah disetujui')
 
 @section('content')
 
@@ -21,7 +20,7 @@
         <div class="stat-card p-5">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Disetujui KC</p>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Disetujui</p>
                     <p class="text-3xl font-bold text-green-600 mt-1">{{ $stats['disetujui'] }}</p>
                 </div>
                 <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
@@ -58,7 +57,6 @@
         <i class="fa-solid fa-circle-info text-amber-500 flex-shrink-0"></i>
         <div class="text-sm text-amber-800">
             Anda hanya dapat melihat hasil analisis yang telah <strong>disetujui oleh Kepala Cabang</strong>.
-            Untuk keperluan penawaran, pastikan menggunakan data yang sudah mendapat persetujuan.
         </div>
     </div>
 

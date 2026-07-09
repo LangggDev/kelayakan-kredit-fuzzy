@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Analisis Baru 5C')
 @section('page-title', 'Analisis Kelayakan Kredit — Metode 5C')
-@section('page-subtitle', 'Character · Capacity · Capital · Collateral · Condition')
 
 @section('content')
     @if($errors->any())

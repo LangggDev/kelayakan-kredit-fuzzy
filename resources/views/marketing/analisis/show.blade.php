@@ -99,7 +99,7 @@
         </div>
     @endif
 
-    @if(!empty($analisis->nilai_fuzzifikasi))
+    {{-- @if(!empty($analisis->nilai_fuzzifikasi))
         <div class="card p-6 mb-6">
             <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2"><i
                     class="fa-solid fa-wave-square text-indigo-500"></i> Fuzzifikasi</h3>
@@ -208,5 +208,5 @@
                 </p>
             </div>
         </div>
-    @endif
+    @endif --}}
 @endsection

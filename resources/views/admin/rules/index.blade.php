@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Rule Fuzzy')
 @section('page-title', 'Manajemen Rule Fuzzy')
-@section('page-subtitle', 'Kelola aturan IF-THEN untuk inferensi Fuzzy Tsukamoto')
 
 @section('content')
     <div class="flex flex-col sm:flex-row gap-3 mb-2">

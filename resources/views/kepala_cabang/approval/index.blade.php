@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Approval Analisis')
 @section('page-title', 'Approval Analisis Kredit')
-@section('page-subtitle', 'Review dan setujui hasil analisis dari Kredit Analis')
 
 @section('content')
 

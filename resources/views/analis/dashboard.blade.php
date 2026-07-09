@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard Analis')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Selamat datang, ' . auth()->user()->name)
 
 @section('content')
     <!-- Stats -->

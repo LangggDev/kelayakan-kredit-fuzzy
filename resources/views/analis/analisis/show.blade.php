@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Detail Analisis')
 @section('page-title', 'Detail Hasil Analisis')
-@section('page-subtitle', 'Laporan kelayakan kredit — ' . ($analisis->calonNasabah?->nama ?? 'Nasabah Terhapus'))
 
 @section('content')
 

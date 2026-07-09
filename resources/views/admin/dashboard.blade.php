@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard Admin')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Ringkasan sistem kelayakan kredit')
 
 @section('content')
     <!-- Stats Grid -->

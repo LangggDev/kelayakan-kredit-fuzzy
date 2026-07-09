@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Riwayat Analisis')
 @section('page-title', 'Riwayat Analisis')
-@section('page-subtitle', 'Semua analisis yang pernah Anda lakukan')
 
 @section('content')
 

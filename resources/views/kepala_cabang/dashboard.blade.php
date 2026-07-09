@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard Kepala Cabang')
 @section('page-title', 'Dashboard Kepala Cabang')
-@section('page-subtitle', 'Monitor dan kelola persetujuan analisis kredit')
 
 @section('content')
 

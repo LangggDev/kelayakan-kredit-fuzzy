@@ -299,7 +299,7 @@
                     </a>
                     <a href="{{ route('analis.analisis.index') }}"
                         class="sidebar-link flex items-center gap-3 px-3 py-2.5 text-sm {{ request()->routeIs('analis.analisis.index') ? 'active' : '' }}">
-                        <i class="fa-solid fa-clock-rotate-left w-4 text-center"></i> Riwayat Analisis
+                        <i class="fa-solid fa-clock-rotate-left w-4 text-center"></i> Hasil Analisis
                     </a>
 
                     {{-- KEPALA CABANG --}}

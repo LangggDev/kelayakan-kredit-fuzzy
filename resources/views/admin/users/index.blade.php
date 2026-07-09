@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Manajemen Pengguna')
 @section('page-title', 'Manajemen Pengguna')
-@section('page-subtitle', 'Kelola akun Kredit Analis, Kepala Cabang, dan Marketing')
 
 @section('content')
 

@@ -53,7 +53,7 @@
                         <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 uppercase">Calon Debitur</th>
                         <th class="text-right px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Pinjaman</th>
                         <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Skor</th>
-                        <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Keputusan Fuzzy
+                        <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Keputusan
                         </th>
                         <th class="text-center px-4 py-3.5 text-xs font-semibold text-slate-500 uppercase">Status Approval
                         </th>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Dashboard Kepala Cabang')
-@section('page-title', 'Dashboard Kepala Cabang')
+@section('page-title', 'Dashboard')
 
 @section('content')
 

@@ -37,7 +37,7 @@
         </div>
 
         <p class="text-center text-xs mt-5" style="color:rgb(255, 255, 255)">
-            &copy; {{ date('Y') }} PT Mandiri Utama Finance &mdash; Metode Fuzzy Tsukamoto 5C
+            &copy; {{ date('Y') }} PT Mandiri Utama Finance
         </p>
     </div>
 </body>

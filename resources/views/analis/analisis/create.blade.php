@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Analisis Baru 5C')
-@section('page-title', 'Analisis Kelayakan Kredit — Metode 5C')
+@section('page-title', 'Analisis Baru')
 
 @section('content')
     @if($errors->any())

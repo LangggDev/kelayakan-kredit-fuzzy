@@ -14,17 +14,17 @@
                     class="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white">
             </div>
             <select name="keputusan" class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50">
-                <option value="">Semua Keputusan Fuzzy</option>
-                <option value="Layak" {{ request('keputusan') === 'Layak' ? 'selected' : '' }}>✅ Layak</option>
-                <option value="Tidak Layak" {{ request('keputusan') === 'Tidak Layak' ? 'selected' : '' }}>❌ Tidak Layak
+                <option value="">Semua Keputusan</option>
+                <option value="Layak" {{ request('keputusan') === 'Layak' ? 'selected' : '' }}>Layak</option>
+                <option value="Tidak Layak" {{ request('keputusan') === 'Tidak Layak' ? 'selected' : '' }}>Tidak Layak
                 </option>
             </select>
             <select name="status" class="px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm bg-slate-50">
                 <option value="">Semua Status</option>
-                <option value="menunggu" {{ request('status') === 'menunggu' ? 'selected' : '' }}>⏳ Menunggu Tanda Tangan
+                <option value="menunggu" {{ request('status') === 'menunggu' ? 'selected' : '' }}>Menunggu Tanda Tangan
                 </option>
-                <option value="disetujui" {{ request('status') === 'disetujui' ? 'selected' : '' }}>✅ Disetujui</option>
-                <option value="tidak_layak" {{ request('status') === 'tidak_layak' ? 'selected' : '' }}>⛔ Tidak Layak</option>
+                <option value="disetujui" {{ request('status') === 'disetujui' ? 'selected' : '' }}>Disetujui</option>
+                <option value="tidak_layak" {{ request('status') === 'tidak_layak' ? 'selected' : '' }}>Tidak Layak</option>
             </select>
             <button type="submit"
                 class="btn-primary px-5 py-2.5 rounded-xl text-white font-semibold text-sm flex items-center gap-2">

@@ -29,7 +29,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @php
                             $ante = [
-                                'character' => ['C1 — Character', ['baik', 'cukup', 'buruk'], 'blue'],
+                                'character' => ['C1 — Character', ['S1 (tipe Slik 1)', 'S2 (tipe Slik 2)', 'S3 (tipe Slik 3)'], 'blue'],
                                 'capacity' => ['C2 — Capacity', ['sangat layak', 'layak', 'tidak layak'], 'green'],
                                 'capital' => ['C3 — Capital', ['sangat layak', 'layak', 'tidak layak'], 'amber'],
                                 'collateral' => ['C4 — Collateral', ['sangat layak', 'layak', 'tidak layak'], 'purple'],

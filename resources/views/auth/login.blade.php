@@ -38,10 +38,9 @@
             </label>
             <div class="relative">
                 <i class="fa-solid fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8" 
-                    inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                    class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                            {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
+                <input type="text" name="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK Anda" maxlength="8"
+                    inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full pl-10 pr-4 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
+                                    {{ $errors->has('nik') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required
                     autofocus autocomplete="username">
             </div>
             @error('nik')
@@ -58,9 +57,9 @@
             </label>
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="password" name="password" id="pwdInput" placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
-                                    {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}"
-                    required autocomplete="current-password">
+                <input type="password" name="password" id="pwdInput" placeholder="••••••••"
+                    class="w-full pl-10 pr-10 py-2.5 border rounded-xl text-sm bg-slate-50 focus:bg-white transition-colors
+                                            {{ $errors->has('password') ? 'border-red-300 bg-red-50' : 'border-slate-200' }}" required autocomplete="current-password">
                 <button type="button" onclick="togglePwd()"
                     class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                     <i class="fa-solid fa-eye text-sm" id="eyeIco"></i>
@@ -104,7 +103,7 @@
     <div class="mt-5 pt-5 border-t border-slate-100">
         <p class="text-xs text-slate-400 text-center mb-3 font-semibold uppercase tracking-wider">Demo Akun</p>
         <div class="grid grid-cols-2 gap-2">
-            <button onclick="fillLogin('84729103','admin123')"
+            <button onclick="fillLogin('23024637','Dinda2626')"
                 class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
                 style="background:#eef1f8; border-color:#d5ddef">
                 <div class="flex items-center gap-2 mb-1">
@@ -116,56 +115,56 @@
                 <div class="text-xs text-slate-400">Pass: admin123</div>
             </button>
 
-            <button onclick="fillLogin('39102847','analis123')"
-                class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
-                style="background:#dbeafe; border-color:#bfdbfe">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
-                        style="background:#2563eb">KA</span>
-                    <span class="text-xs font-bold text-blue-700">Kredit Analis</span>
-                </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">39102847</span></div>
-                <div class="text-xs text-slate-400">Pass: analis123</div>
-            </button>
+            <!-- <button onclick="fillLogin('39102847','analis123')"
+                    class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
+                    style="background:#dbeafe; border-color:#bfdbfe">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
+                            style="background:#2563eb">KA</span>
+                        <span class="text-xs font-bold text-blue-700">Kredit Analis</span>
+                    </div>
+                    <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">39102847</span></div>
+                    <div class="text-xs text-slate-400">Pass: analis123</div>
+                </button>
 
-            <button onclick="fillLogin('57281940','kc12345678')"
-                class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
-                style="background:#fef9ee; border-color:#fde68a">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
-                        style="background:#d97706">KC</span>
-                    <span class="text-xs font-bold text-amber-700">Kepala Cabang</span>
-                </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">57281940</span></div>
-                <div class="text-xs text-slate-400">Pass: kc12345678</div>
-            </button>
+                <button onclick="fillLogin('57281940','kc12345678')"
+                    class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
+                    style="background:#fef9ee; border-color:#fde68a">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
+                            style="background:#d97706">KC</span>
+                        <span class="text-xs font-bold text-amber-700">Kepala Cabang</span>
+                    </div>
+                    <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">57281940</span></div>
+                    <div class="text-xs text-slate-400">Pass: kc12345678</div>
+                </button>
 
-            <button onclick="fillLogin('10394857','mkt12345678')"
-                class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
-                style="background:#f0fdf4; border-color:#bbf7d0">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
-                        style="background:#16a34a">MK</span>
-                    <span class="text-xs font-bold text-green-700">Marketing</span>
-                </div>
-                <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">10394857</span></div>
-                <div class="text-xs text-slate-400">Pass: mkt12345678</div>
-            </button>
+                <button onclick="fillLogin('10394857','mkt12345678')"
+                    class="p-2.5 rounded-xl text-left hover:opacity-90 transition-opacity border"
+                    style="background:#f0fdf4; border-color:#bbf7d0">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-5 h-5 rounded flex items-center justify-center text-white text-xs font-bold"
+                            style="background:#16a34a">MK</span>
+                        <span class="text-xs font-bold text-green-700">Marketing</span>
+                    </div>
+                    <div class="text-xs text-slate-500">NIK: <span class="font-mono font-semibold">10394857</span></div>
+                    <div class="text-xs text-slate-400">Pass: mkt12345678</div>
+                </button>
+            </div> -->
         </div>
-    </div>
 
-    <script>
-        function togglePwd() {
-            const i = document.getElementById('pwdInput');
-            const e = document.getElementById('eyeIco');
-            i.type = i.type === 'password' ? 'text' : 'password';
-            e.className = 'fa-solid ' + (i.type === 'password' ? 'fa-eye' : 'fa-eye-slash') + ' text-sm';
-        }
-        function fillLogin(nik, pwd) {
-            document.querySelector('input[name="nik"]').value = nik;
-            document.getElementById('pwdInput').value = pwd;
-            document.querySelector('input[name="nik"]').focus();
-        }
-    </script>
+        <script>
+            function togglePwd() {
+                const i = document.getElementById('pwdInput');
+                const e = document.getElementById('eyeIco');
+                i.type = i.type === 'password' ? 'text' : 'password';
+                e.className = 'fa-solid ' + (i.type === 'password' ? 'fa-eye' : 'fa-eye-slash') + ' text-sm';
+            }
+            function fillLogin(nik, pwd) {
+                document.querySelector('input[name="nik"]').value = nik;
+                document.getElementById('pwdInput').value = pwd;
+                document.querySelector('input[name="nik"]').focus();
+            }
+        </script>
 
 @endsection

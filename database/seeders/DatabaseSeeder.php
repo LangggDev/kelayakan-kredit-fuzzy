@@ -16,58 +16,58 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'name' => 'Administrator',
-            'nik' => '84729103',
-            'email' => 'admin@muf.co.id',
-            'password' => Hash::make('admin123'),
+            'name' => 'Dinda',
+            'nik' => '23024637',
+            'email' => 'dinda@muf.co.id',
+            'password' => Hash::make('Dinda2626'),
             'role' => 'admin',
             'is_active' => true,
         ]);
 
-        $analis = User::create([
-            'name' => 'Budi Santoso',
-            'nik' => '39102847',
-            'email' => 'budi@muf.co.id',
-            'password' => Hash::make('analis123'),
-            'role' => 'analis',
-            'is_active' => true,
-        ]);
-        KreditAnalis::create([
-            'user_id' => $analis->id,
-            'nip' => 'KA-2024-001',
-            'jabatan' => 'Kredit Analis Senior',
-            'telepon' => '081234567890',
-        ]);
+        // $analis = User::create([
+        //     'name' => 'Budi Santoso',
+        //     'nik' => '39102847',
+        //     'email' => 'budi@muf.co.id',
+        //     'password' => Hash::make('analis123'),
+        //     'role' => 'analis',
+        //     'is_active' => true,
+        // ]);
+        // KreditAnalis::create([
+        //     'user_id' => $analis->id,
+        //     'nip' => 'KA-2024-001',
+        //     'jabatan' => 'Kredit Analis Senior',
+        //     'telepon' => '081234567890',
+        // ]);
 
-        $kc = User::create([
-            'name' => 'Andi Wijaya',
-            'nik' => '57281940',
-            'email' => 'andi@muf.co.id',
-            'password' => Hash::make('kc12345678'),
-            'role' => 'kepala_cabang',
-            'is_active' => true,
-        ]);
-        KepalaCabang::create([
-            'user_id' => $kc->id,
-            'nip' => 'KC-2024-001',
-            'cabang' => 'Cabang Jakarta Selatan',
-            'telepon' => '081234567891',
-        ]);
+        // $kc = User::create([
+        //     'name' => 'Andi Wijaya',
+        //     'nik' => '57281940',
+        //     'email' => 'andi@muf.co.id',
+        //     'password' => Hash::make('kc12345678'),
+        //     'role' => 'kepala_cabang',
+        //     'is_active' => true,
+        // ]);
+        // KepalaCabang::create([
+        //     'user_id' => $kc->id,
+        //     'nip' => 'KC-2024-001',
+        //     'cabang' => 'Cabang Jakarta Selatan',
+        //     'telepon' => '081234567891',
+        // ]);
 
-        $mkt = User::create([
-            'name' => 'Sari Dewi',
-            'nik' => '10394857',
-            'email' => 'sari@muf.co.id',
-            'password' => Hash::make('mkt12345678'),
-            'role' => 'marketing',
-            'is_active' => true,
-        ]);
-        MarketingStaff::create([
-            'user_id' => $mkt->id,
-            'nip' => 'MKT-2024-001',
-            'area' => 'Jabodetabek',
-            'telepon' => '081234567892',
-        ]);
+        // $mkt = User::create([
+        //     'name' => 'Sari Dewi',
+        //     'nik' => '10394857',
+        //     'email' => 'sari@muf.co.id',
+        //     'password' => Hash::make('mkt12345678'),
+        //     'role' => 'marketing',
+        //     'is_active' => true,
+        // ]);
+        // MarketingStaff::create([
+        //     'user_id' => $mkt->id,
+        //     'nip' => 'MKT-2024-001',
+        //     'area' => 'Jabodetabek',
+        //     'telepon' => '081234567892',
+        // ]);
 
         // C1 — CHARACTER: Skor Kredit BI Checking (0–100)
         $c1 = [

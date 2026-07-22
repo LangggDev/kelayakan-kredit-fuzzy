@@ -15,8 +15,8 @@ return new class extends Migration
         });
 
         Schema::create('kepala_cabang', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->id('id_kepala_cabang');
+            $table->foreignId('user_id')->constrained('users', 'id_user')->onDelete('cascade');
             $table->string('nip')->unique()->nullable();
             $table->string('cabang')->nullable();
             $table->string('telepon')->nullable();
@@ -24,8 +24,8 @@ return new class extends Migration
         });
 
         Schema::create('marketing_staff', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->id('id_marketing_staff');
+            $table->foreignId('user_id')->constrained('users', 'id_user')->onDelete('cascade');
             $table->string('nip')->unique()->nullable();
             $table->string('area')->nullable();
             $table->string('telepon')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
 
         Schema::table('hasil_analisis', function (Blueprint $table) {
             $table->enum('status_approval', ['menunggu', 'disetujui', 'ditolak'])->default('menunggu')->after('catatan');
-            $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null')->after('status_approval');
+            $table->foreignId('approved_by')->nullable()->constrained('users', 'id_user')->onDelete('set null')->after('status_approval');
             $table->timestamp('approved_at')->nullable()->after('approved_by');
             $table->text('catatan_approval')->nullable()->after('approved_at');
         });

@@ -196,8 +196,8 @@ class AnalisisController extends Controller
         }
 
         $hasilAnalisis = HasilAnalisis::create([
-            'user_id'              => auth()->user()->id,
-            'calon_nasabah_id'     => $nasabah->id,
+            'user_id'              => auth()->user()->id_user,
+            'calon_nasabah_id'     => $nasabah->id_calon_nasabah,
             'skor_kredit'          => $request->skor_kredit_slik, // Simpan Slik 1/2/3
             'penghasilan'          => $request->penghasilan ?? 0,
             'rasio_cicilan'        => isset($rasio) ? round($rasio, 4) : 0, // Simpan rasio cicilan asli (%)
@@ -224,7 +224,7 @@ class AnalisisController extends Controller
             ? 'Analisis ulang berhasil dikirim dan menunggu persetujuan Kepala Cabang.'
             : 'Analisis kelayakan kredit berhasil dilakukan.';
 
-        return redirect()->route('analis.analisis.show', $hasilAnalisis->id)
+        return redirect()->route('analis.analisis.show', $hasilAnalisis->id_hasil_analisis)
             ->with('success', $pesan);
     }
 

@@ -398,7 +398,7 @@
             <div class="flex gap-3 mt-5">
                 <button type="submit" id="submitBtn"
                     class="btn-primary flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm">
-                    <i class="fa-solid fa-calculator"></i> Proses Analisis Fuzzy 5C
+                    <i class="fa-solid fa-calculator"></i> Proses
                 </button>
                 <a href="{{ route('analis.dashboard') }}"
                     class="px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-medium text-sm hover:bg-slate-50">Batal</a>

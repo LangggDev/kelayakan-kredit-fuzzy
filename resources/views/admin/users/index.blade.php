@@ -86,7 +86,7 @@
                                 @if($user->role === 'analis')
                                     {{ $user->kreditAnalis?->nip ?? '—' }}
                                 @elseif($user->role === 'kepala_cabang')
-                                    {{ $user->kepalaKabang?->nip ?? '—' }}
+                                    {{ $user->kepalaCabang?->nip ?? '—' }}
                                 @elseif($user->role === 'marketing')
                                     {{ $user->marketingStaff?->nip ?? '—' }}
                                 @endif
@@ -95,14 +95,14 @@
                                 @if($user->role === 'analis')
                                     {{ $user->kreditAnalis?->jabatan ?? '—' }}
                                 @elseif($user->role === 'kepala_cabang')
-                                    Cabang: {{ $user->kepalaKabang?->cabang ?? '—' }}
+                                    Cabang: {{ $user->kepalaCabang?->cabang ?? '—' }}
                                 @elseif($user->role === 'marketing')
                                     Area: {{ $user->marketingStaff?->area ?? '—' }}
                                 @endif
                             </td>
                             <td class="px-4 py-4 text-xs text-slate-500">
                                 @if($user->role === 'analis') {{ $user->kreditAnalis?->telepon ?? '—' }}
-                                @elseif($user->role === 'kepala_cabang') {{ $user->kepalaKabang?->telepon ?? '—' }}
+                                @elseif($user->role === 'kepala_cabang') {{ $user->kepalaCabang?->telepon ?? '—' }}
                                 @elseif($user->role === 'marketing') {{ $user->marketingStaff?->telepon ?? '—' }}
                                 @endif
                             </td>
@@ -120,8 +120,12 @@
                             </td>
                             <td class="px-5 py-4 text-right">
                                 <div class="flex items-center gap-2 justify-end">
+                                    <a href="{{ route('admin.users.show', $user->id) }}"
+                                        class="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors" title="Detail">
+                                        <i class="fa-solid fa-eye text-xs"></i>
+                                    </a>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
-                                        class="p-1.5 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors">
+                                        class="p-1.5 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors" title="Edit">
                                         <i class="fa-solid fa-pen text-xs"></i>
                                     </a>
                                     @if($user->id !== auth()->id())
@@ -129,7 +133,7 @@
                                             onsubmit="return confirm('Hapus akun {{ $user->name }}?')">
                                             @csrf @method('DELETE')
                                             <button type="submit"
-                                                class="p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                                                class="p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors" title="Hapus">
                                                 <i class="fa-solid fa-trash text-xs"></i>
                                             </button>
                                         </form>

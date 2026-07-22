@@ -67,6 +67,12 @@ class UserController extends Controller
             ->with('success', "Akun {$user->role_label} atas nama {$user->name} berhasil ditambahkan.");
     }
 
+    public function show(User $user)
+    {
+        $user->load(['kreditAnalis', 'kepalaCabang', 'marketingStaff']);
+        return view('admin.users.show', compact('user'));
+    }
+
     public function edit(User $user)
     {
         $user->load(['kreditAnalis', 'kepalaCabang', 'marketingStaff']);
@@ -77,8 +83,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|max:20|unique:users,nik,' . $user->id,
-            'email' => 'nullable|email|unique:users,email,' . $user->id,
+            'nik' => 'required|string|max:20|unique:users,nik,' . $user->id_user . ',id_user',
+            'email' => 'nullable|email|unique:users,email,' . $user->id_user . ',id_user',
             'password' => 'nullable|min:8|confirmed',
             'role' => 'required|in:analis,kepala_cabang,marketing',
             'telepon' => 'nullable|string|max:20',
@@ -107,7 +113,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->id === auth()->id()) {
+        if ($user->id_user === auth()->id()) {
             return back()->with('error', 'Tidak dapat menghapus akun sendiri.');
         }
         $user->delete();
@@ -126,19 +132,19 @@ class UserController extends Controller
     {
         match ($user->role) {
             'analis' => KreditAnalis::create([
-                'user_id' => $user->id,
+                'user_id' => $user->id_user,
                 'nip' => $request->nip,
                 'jabatan' => $request->jabatan,
                 'telepon' => $request->telepon,
             ]),
             'kepala_cabang' => KepalaCabang::create([
-                'user_id' => $user->id,
+                'user_id' => $user->id_user,
                 'nip' => $request->nip,
                 'cabang' => $request->cabang,
                 'telepon' => $request->telepon,
             ]),
             'marketing' => MarketingStaff::create([
-                'user_id' => $user->id,
+                'user_id' => $user->id_user,
                 'nip' => $request->nip,
                 'area' => $request->area,
                 'telepon' => $request->telepon,
@@ -151,15 +157,15 @@ class UserController extends Controller
     {
         match ($user->role) {
             'analis' => $user->kreditAnalis()->updateOrCreate(
-                ['user_id' => $user->id],
+                ['user_id' => $user->id_user],
                 ['nip' => $request->nip, 'jabatan' => $request->jabatan, 'telepon' => $request->telepon]
             ),
             'kepala_cabang' => $user->kepalaCabang()->updateOrCreate(
-                ['user_id' => $user->id],
+                ['user_id' => $user->id_user],
                 ['nip' => $request->nip, 'cabang' => $request->cabang, 'telepon' => $request->telepon]
             ),
             'marketing' => $user->marketingStaff()->updateOrCreate(
-                ['user_id' => $user->id],
+                ['user_id' => $user->id_user],
                 ['nip' => $request->nip, 'area' => $request->area, 'telepon' => $request->telepon]
             ),
             default => null,

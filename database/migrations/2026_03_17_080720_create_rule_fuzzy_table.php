@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rule_fuzzy', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_rule_fuzzy');
             $table->integer('nomor_rule');
             // Anteseden 5C
             $table->string('character');

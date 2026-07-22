@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'id_user';
+
     protected $fillable = [
         'name',
         'nik',
@@ -29,10 +31,10 @@ class User extends Authenticatable
         ];
     }
 
-    public function kreditAnalis()   { return $this->hasOne(KreditAnalis::class); }
-    public function kepalaCabang()   { return $this->hasOne(KepalaCabang::class); }
-    public function marketingStaff() { return $this->hasOne(MarketingStaff::class); }
-    public function hasilAnalisis()  { return $this->hasMany(HasilAnalisis::class); }
+    public function kreditAnalis()   { return $this->hasOne(KreditAnalis::class, 'user_id'); }
+    public function kepalaCabang()   { return $this->hasOne(KepalaCabang::class, 'user_id'); }
+    public function marketingStaff() { return $this->hasOne(MarketingStaff::class, 'user_id'); }
+    public function hasilAnalisis()  { return $this->hasMany(HasilAnalisis::class, 'user_id'); }
     public function approvals()      { return $this->hasMany(HasilAnalisis::class, 'approved_by'); }
 
     public function isAdmin(): bool        { return $this->role === 'admin'; }
@@ -53,6 +55,11 @@ class User extends Authenticatable
 
     public function getAuthIdentifierName(): string
     {
-        return 'id';
+        return 'id_user';
+    }
+
+    public function getIdAttribute()
+    {
+        return $this->attributes['id_user'] ?? $this->getKey();
     }
 }

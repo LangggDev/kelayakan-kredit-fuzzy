@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HasilAnalisis extends Model
 {
     protected $table = 'hasil_analisis';
+    protected $primaryKey = 'id_hasil_analisis';
 
     protected $fillable = [
         'user_id', 'calon_nasabah_id',
@@ -40,9 +41,9 @@ class HasilAnalisis extends Model
         'approved_at'          => 'datetime',
     ];
 
-    public function user()         { return $this->belongsTo(User::class)->withDefault(['name' => 'Pengguna Terhapus']); }
-    public function calonNasabah() { return $this->belongsTo(CalonNasabah::class, 'calon_nasabah_id')->withDefault(['nama' => 'Nasabah Terhapus', 'nik' => '-']); }
-    public function approvedBy()   { return $this->belongsTo(User::class, 'approved_by')->withDefault(['name' => 'Sistem / Terhapus']); }
+    public function user()         { return $this->belongsTo(User::class, 'user_id', 'id_user')->withDefault(['name' => 'Pengguna Terhapus']); }
+    public function calonNasabah() { return $this->belongsTo(CalonNasabah::class, 'calon_nasabah_id', 'id_calon_nasabah')->withDefault(['nama' => 'Nasabah Terhapus', 'nik' => '-']); }
+    public function approvedBy()   { return $this->belongsTo(User::class, 'approved_by', 'id_user')->withDefault(['name' => 'Sistem / Terhapus']); }
 
     public function getStatusLabelAttribute(): string
     {
@@ -69,5 +70,10 @@ class HasilAnalisis extends Model
             'tidak_layak' => 'fa-ban',
             default       => 'fa-clock',
         };
+    }
+
+    public function getIdAttribute()
+    {
+        return $this->attributes['id_hasil_analisis'] ?? $this->getKey();
     }
 }

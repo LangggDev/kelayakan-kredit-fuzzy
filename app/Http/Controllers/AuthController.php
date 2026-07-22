@@ -99,7 +99,7 @@ class AuthController extends Controller
         ]);
 
         KreditAnalis::create([
-            'user_id' => $user->id,
+            'user_id' => $user->id_user,
             'nip'     => $request->nip_ka,
             'jabatan' => $request->jabatan,
             'telepon' => $request->telepon,

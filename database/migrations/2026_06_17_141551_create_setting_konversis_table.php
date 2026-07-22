@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('setting_konversis', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_setting_konversi');
             $table->string('kriteria')->unique();
             $table->float('batas_sangat_layak');
             $table->float('batas_tidak_layak');

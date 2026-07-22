@@ -31,7 +31,7 @@ class RuleController extends Controller
     {
         $request->validate([
             'nomor_rule' => 'required|integer|unique:rule_fuzzy,nomor_rule',
-            'character' => 'required|in:excelent,medium,worst',
+            'character' => 'required|in:S1 (tipe Slik 1),S2 (tipe Slik 2),S3 (tipe Slik 3)',
             'capacity' => 'required|in:sangat layak,layak,tidak layak,any',
             'capital' => 'required|in:sangat layak,layak,tidak layak,any',
             'collateral' => 'required|in:sangat layak,layak,tidak layak,any',
@@ -55,7 +55,7 @@ class RuleController extends Controller
     public function update(Request $request, RuleFuzzy $rule)
     {
         $request->validate([
-            'nomor_rule' => 'required|integer|unique:rule_fuzzy,nomor_rule,' . $rule->id,
+            'nomor_rule' => 'required|integer|unique:rule_fuzzy,nomor_rule,' . $rule->id_rule_fuzzy . ',id_rule_fuzzy',
             'character' => 'required|in:excelent,medium,worst',
             'capacity' => 'required|in:sangat layak,layak,tidak layak,any',
             'capital' => 'required|in:sangat layak,layak,tidak layak,any',
